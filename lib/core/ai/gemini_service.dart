@@ -207,8 +207,7 @@ class GeminiService {
         : goalsNeedingAttention.map((g) => g.title).join(', ');
 
     final now = DateTime.now();
-    final hoursLeft =
-        (24 - now.hour) - (now.minute / 60.0);
+    final hoursLeft = (24 - now.hour) - (now.minute / 60.0);
 
     final prompt = Prompts.streakNudge(
       currentStreak: currentStreak,
@@ -231,7 +230,7 @@ class GeminiService {
     }
   }
 
-  /// Sends a JSON-mode prompt to Gemini with retry logic.
+  /// Sends a JSON-mode prompt to Gemini with retry logic and markdown code fence cleaning.
   Future<String?> _sendWithRetry(String prompt) async {
     for (var attempt = 0; attempt <= kGeminiMaxRetries; attempt++) {
       try {
@@ -247,9 +246,21 @@ class GeminiService {
           continue;
         }
 
+        // Clean markdown code blocks (e.g. ```json ... ```)
+        String cleaned = text.trim();
+        if (cleaned.startsWith('```json')) {
+          cleaned = cleaned.substring(7);
+        } else if (cleaned.startsWith('```')) {
+          cleaned = cleaned.substring(3);
+        }
+        if (cleaned.endsWith('```')) {
+          cleaned = cleaned.substring(0, cleaned.length - 3);
+        }
+        cleaned = cleaned.trim();
+
         // Validate it's parseable JSON
-        jsonDecode(text);
-        return text;
+        jsonDecode(cleaned);
+        return cleaned;
       } catch (e) {
         dev.log(
           'WARN: Gemini request failed (attempt ${attempt + 1}/${kGeminiMaxRetries + 1}): $e',

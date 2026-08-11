@@ -21,9 +21,9 @@ class ConsistencyServiceImpl {
     final yesterdayStr = yesterday.toDateString();
     final now = DateTime.now();
 
-    // Check if yesterday had activity
+    // Check if yesterday had activity (fallback to updated_at/created_at if completed_at is null)
     final tasksCompleted = await db.rawQuery(
-      'SELECT COUNT(*) as count FROM task WHERE is_completed = 1 AND DATE(completed_at) = ?',
+      'SELECT COUNT(*) as count FROM task WHERE is_completed = 1 AND DATE(COALESCE(completed_at, updated_at, created_at)) = ?',
       [yesterdayStr],
     );
     final taskCount = (tasksCompleted.first['count'] as int?) ?? 0;
@@ -190,7 +190,7 @@ class ConsistencyServiceImpl {
     final today = DateTime.now().toDateString();
 
     final tasksCompleted = await db.rawQuery(
-      'SELECT COUNT(*) as count FROM task WHERE is_completed = 1 AND DATE(completed_at) = ?',
+      'SELECT COUNT(*) as count FROM task WHERE is_completed = 1 AND DATE(COALESCE(completed_at, updated_at, created_at)) = ?',
       [today],
     );
     final hasTask = ((tasksCompleted.first['count'] as int?) ?? 0) > 0;
