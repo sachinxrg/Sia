@@ -1,13 +1,23 @@
 # SIA — Smart Intelligent Assistant 🚀
 
-> **100% Free-to-Operate, AI-Powered Daily Planning & Productivity Engine for College Students.**  
-> *Intercepts local WhatsApp notifications, syncs Google Classroom & Gmail, runs them through Gemini 1.5 Flash AI, and schedules intelligent local push notifications.*
+<p align="center">
+  <img src="https://img.shields.io/badge/Flutter-3.44+-02569B?style=for-the-badge&logo=flutter&logoColor=white" alt="Flutter" />
+  <img src="https://img.shields.io/badge/Dart-3.12+-0175C2?style=for-the-badge&logo=dart&logoColor=white" alt="Dart" />
+  <img src="https://img.shields.io/badge/AI-Gemini%201.5%20Flash-4285F4?style=for-the-badge&logo=google&logoColor=white" alt="Gemini AI" />
+  <img src="https://img.shields.io/badge/Database-SQLite%20sqflite-003B57?style=for-the-badge&logo=sqlite&logoColor=white" alt="SQLite" />
+  <img src="https://img.shields.io/badge/State-Riverpod%202.6-00599C?style=for-the-badge" alt="Riverpod" />
+  <img src="https://img.shields.io/badge/Cost-100%25%20Free%20Stack-00B894?style=for-the-badge" alt="Zero-Cost" />
+  <img src="https://img.shields.io/badge/License-MIT-purple?style=for-the-badge" alt="License" />
+</p>
 
 ---
 
-## 📸 Overview & Visual Identity
+> **SIA (Smart Intelligent Assistant)** is a 100% free-to-operate, AI-powered daily planning & productivity engine for college students.  
+> It intercepts local WhatsApp notifications, syncs Google Classroom & Gmail, processes unstructured data through Google Gemini 1.5 Flash API, and schedules intelligent local push notifications with zero cloud backend costs.
 
-SIA is built on a **"Calm Intelligence"** design philosophy — a sleek, dark-themed, glassmorphic productivity assistant designed specifically for college students. It solves notification overload and fragmented assignment deadlines without requiring expensive backend infrastructure or monthly subscriptions.
+---
+
+## 📸 System Architecture & Pipeline
 
 ```text
 ┌─────────────────────────────────────────────────────────────────────────────┐
@@ -39,22 +49,70 @@ SIA is built on a **"Calm Intelligence"** design philosophy — a sleek, dark-th
 
 ---
 
-## 🌟 Key Features
+## 🎨 UI Layout & Screen Mockups
 
-### 📩 1. Local WhatsApp Interceptor
-- Intercepts incoming WhatsApp class group messages and submission alerts locally via Android's `NotificationListenerService`.
-- Deduplicates incoming alerts using **SHA-256 content hashing** with a 2-minute tolerance window.
-- Extracted text is sanitized and passed to Gemini 1.5 Flash for automatic task parsing.
+### 1. Dashboard Screen ("Calm Intelligence" Theme)
+```text
+┌───────────────────────────────────────────────────────────┐
+│ Good morning, Sachidanand! 👋                              │
+│ Stanford University                                       │
+├───────────────────────────────────────────────────────────┤
+│ 🔥 7 Day Streak  [Secured Today ✓]                       │
+│ Best: 14 days • Tap for heatmap                           │
+├──────────────────────────────────────────┬────────────────┤
+│           ( 85% )                        │  Completed: 6  │
+│          SIA Score                       │  Pending: 2    │
+├──────────────────────────────────────────┴────────────────┤
+│ Today's Timeline                                          │
+│ ┌────────────────┐ ┌────────────────┐ ┌────────────────┐ │
+│ │ [CLASS] DBMS   │ │ [TASK] OS Ch 4 │ │ [GOAL] DSA Lab │ │
+│ │ 09:00 - 10:30  │ │ 11:00 - 12:30  │ │ 14:00 - 16:00  │ │
+│ └────────────────┘ └────────────────┘ └────────────────┘ │
+├───────────────────────────────────────────────────────────┤
+│ Upcoming Tasks                                 [View All] │
+│ ☐ Read OS Chapter 4 (Classroom) • Due tomorrow    [CRITICAL]│
+│ ☐ Submit DBMS Assignment (WhatsApp) • Due in 2d    [HIGH]   │
+└───────────────────────────────────────────────────────────┘
+```
+
+### 2. Consistency & 90-Day Heatmap View
+```text
+┌───────────────────────────────────────────────────────────┐
+│ 🔥 7 Days Current Streak                                  │
+│ All-Time Longest Streak: 14 days                          │
+├───────────────────────────────────────────────────────────┤
+│ 90-Day Activity Heatmap (SIA Productivity Intensity)     │
+│ Mon  ■ ■ ■ □ ■ ■ ■ ■ ■ □ ■ ■                             │
+│ Tue  ■ ■ □ ■ ■ ■ ■ □ ■ ■ ■ ■                             │
+│ Wed  ■ ■ ■ ■ ■ □ ■ ■ ■ ■ ■ ■                             │
+│ Thu  ■ ■ ■ ■ ■ ■ ■ ■ □ ■ ■ ■                             │
+│ Fri  ■ □ ■ ■ ■ ■ ■ ■ ■ ■ ■ ■                             │
+│ Sat  ■ ■ ■ □ ■ ■ □ ■ ■ ■ ■ ■                             │
+│ Sun  □ ■ ■ ■ ■ ■ ■ ■ ■ □ ■ ■                             │
+│                                      Less ■ ■ ■ ■ ■ More  │
+└───────────────────────────────────────────────────────────┘
+```
+
+---
+
+## 🌟 Core Features & Modules
+
+### 📩 1. WhatsApp Notification Interceptor
+- **Package:** `flutter_notification_listener_plus`
+- Intercepts incoming WhatsApp class group messages and submission alerts locally.
+- **SHA-256 Content Deduplication:** Generates a SHA-256 hash using `packageName + title + body + 2min_timestamp_window` to prevent duplicate task entries.
 
 ### 📚 2. Google Classroom & Gmail Delta Sync
-- Connects directly to Google Classroom API to extract coursework, due dates, and submission links.
-- Scans recent unread Gmail threads for exam alerts and professor announcements.
-- Operates on **strictly read-only OAuth2 scopes** (`.readonly`) preserving 100% user privacy.
+- **Package:** `googleapis` + `googleapis_auth`
+- Connects directly to Google Classroom API to extract coursework, due dates, and links.
+- Scans recent unread Gmail threads for exam alerts and professor notices (filtered to last 7 days).
+- Uses strictly **read-only OAuth2 scopes** (`.readonly`).
 
-### 🧠 3. Gemini 1.5 Flash AI Planning Engine
+### 🧠 3. Gemini 1.5 Flash AI Engine
+- **Package:** `google_generative_ai`
 - **Task Extraction:** Converts unstructured notifications into structured JSON tasks with assigned priority (`CRITICAL`, `HIGH`, `MEDIUM`, `LOW`).
-- **Goal-Aware Dynamic Scheduling:** Generates daily timeline blocks (`CLASS`, `TASK`, `BREAK`, `GOAL`) factoring in fixed timetable entries and personal goals.
-- **Smart Notification Copy:** Generates tone-matched, motivating push notification text based on deadline urgency.
+- **Goal-Aware Dynamic Scheduling:** Generates daily timeline blocks (`CLASS`, `TASK`, `BREAK`, `GOAL`) factoring in fixed class timetable entries and personal goals.
+- **Smart Notification Copy & Nudges:** Generates tone-matched push notification text based on urgency.
 
 ### 🎯 4. Personal Goals & Consistency Engine
 - Create custom **Daily Habit**, **Weekly Target**, or **Deadline-based** goals (e.g., *"Study 2 hours of DSA daily"*).
@@ -63,65 +121,57 @@ SIA is built on a **"Calm Intelligence"** design philosophy — a sleek, dark-th
 - **Streak Tracker:** Dynamic fire flame badges celebrating consecutive days of task completion and goal progress.
 
 ### 🔔 5. Multi-Channel Local Push Notifications
+- **Package:** `flutter_local_notifications`
 - 4 dedicated Android Notification Channels:
-  - `sia_deadlines`: Standard task reminders (24h, 6h, 1h, 15m)
+  - `sia_deadlines`: Standard task reminders (24h, 6h, 1h, 15m offsets)
   - `sia_escalations`: Max-priority alerts for overdue critical items
   - `sia_goals`: Daily habit progress nudges (6 PM trigger)
   - `sia_streaks`: Motivational streak retention warnings
 
 ---
 
-## 🛠️ Zero-Cost Tech Stack
+## 🛠️ Zero-Cost Architecture Stack
 
-| Layer | Technology | Rationale |
+| Layer | Technology | Version | Purpose |
+|---|---|---|---|
+| **Framework** | Flutter | ^3.44.0 | Cross-platform UI (Dart 3+ Null Safety) |
+| **State Management** | `flutter_riverpod` | ^2.6.1 | Reactive, testable state management |
+| **AI Engine** | `google_generative_ai` | ^0.4.7 | Free-tier Gemini 1.5 Flash API client |
+| **Local Database** | `sqflite` + `sqflite_common_ffi` | ^2.4.3 | 11 relational tables + 15 indexes |
+| **Notification Listener** | `flutter_notification_listener_plus` | ^1.3.7 | Native Android notification interception |
+| **Push Notifications** | `flutter_local_notifications` | ^18.0.1 | Timezone-aware local push notifications |
+| **Navigation** | `go_router` | ^14.8.1 | ShellRoute bottom navigation & auth guards |
+
+---
+
+## 🗄️ Database Schemas (SQLite)
+
+The local SQLite database (`sia_database.db`) consists of **11 tables** and **15 performance indexes**:
+
+| Table | Purpose | Primary Key |
 |---|---|---|
-| **Framework** | Flutter (Dart 3+ Null Safety) | Cross-platform UI with 60fps native performance |
-| **State Management** | `flutter_riverpod` + `flutter_hooks` | Reactive, testable, dependency-injected state |
-| **AI Engine** | `google_generative_ai` (Gemini 1.5 Flash) | High-speed, zero-cost LLM text/JSON extraction |
-| **Local Database** | `sqflite` + `sqflite_common_ffi` | 11 relational tables, zero server hosting costs |
-| **Notification Listener** | `flutter_notification_listener_plus` | Native Android notification interception |
-| **Push Notifications** | `flutter_local_notifications` | Timezone-aware local push notifications |
-| **Navigation** | `go_router` | ShellRoute bottom navigation & auth guards |
+| `user_profile` | User account, college name & onboarding state | `google_id` |
+| `timetable_entry` | Recurring weekly class schedules | `id` (AUTOINCREMENT) |
+| `raw_notification` | Intercepted WhatsApp notifications | `id` (AUTOINCREMENT) |
+| `classroom_assignment` | Google Classroom coursework items | `id` (AUTOINCREMENT) |
+| `gmail_item` | Scanned college emails | `id` (AUTOINCREMENT) |
+| `task` | Extracted actionable tasks & priorities | `id` (AUTOINCREMENT) |
+| `notification_log` | Scheduled and sent push notifications | `id` (AUTOINCREMENT) |
+| `daily_metric` | Per-day task & notification metrics | `id` (AUTOINCREMENT) |
+| `goal` | Active personal habit & deadline goals | `id` (AUTOINCREMENT) |
+| `goal_progress` | Logged goal progress entries | `id` (AUTOINCREMENT) |
+| `consistency_streak` | Overall and per-goal streak metrics | `id` (AUTOINCREMENT) |
 
 ---
 
-## 📁 Repository Structure
-
-```text
-Sia/
-├── android/               # Native Android manifest & notification listener config
-├── assets/                # Design assets and icon fonts
-├── docs/                  # Architectural specs & Developer Onboarding Guide
-├── lib/
-│   ├── core/
-│   │   ├── ai/            # Gemini API service & prompt templates
-│   │   ├── database/      # SQLite DatabaseService & v1 migration DDL
-│   │   ├── notifications/ # LocalNotificationService & Android channels
-│   │   ├── theme/         # AppColors, AppTypography, AppTheme tokens
-│   │   └── utils/         # Constants, DateExtensions, HashUtils
-│   ├── features/
-│   │   ├── auth/          # LoginScreen & OnboardingScreen
-│   │   ├── dashboard/     # DashboardScreen, MetricsCard, StreakBadge, Timeline
-│   │   ├── goals/         # GoalsScreen, GoalDetailScreen, ConsistencyScreen & Heatmap
-│   │   ├── integrations/  # WhatsAppHandler & Google Integration services
-│   │   └── schedule/      # ScheduleScreen, TaskDetailScreen, TimetableEditor
-│   ├── models/            # 15 Freezed data models + serialization
-│   ├── app.dart           # GoRouter route hierarchy & MainShell nav bar
-│   └── main.dart          # Application entry point
-├── pubspec.yaml           # Dependency declaration
-└── README.md              # Project documentation
-```
-
----
-
-## 🚀 Installation & Setup Guide
+## 🚀 Quick Start & Installation
 
 ### 1. Prerequisites
 - [Flutter SDK](https://docs.flutter.dev/get-started/install) (v3.10.0 or higher)
 - [Android Studio](https://developer.android.com/studio) with Android SDK & Command-line Tools
-- Google Gemini API Key from [Google AI Studio](https://aistudio.google.com/app/apikey)
+- Free Gemini API Key from [Google AI Studio](https://aistudio.google.com/app/apikey)
 
-### 2. Installation
+### 2. Setup Commands
 ```bash
 # Clone the repository
 git clone https://github.com/sachinxrg/Sia.git
@@ -134,40 +184,29 @@ flutter pub get
 dart run build_runner build --delete-conflicting-outputs
 ```
 
-### 3. Running the App
-
-#### Running on Web (Chrome)
+### 3. Run Application
 ```bash
+# Run on Chrome (Web)
 flutter run -d chrome --dart-define=GEMINI_API_KEY=YOUR_GEMINI_KEY_HERE
-```
 
-#### Running on Android / Mobile
-```bash
+# Run on Android Mobile / Emulator
 flutter run --dart-define=GEMINI_API_KEY=YOUR_GEMINI_KEY_HERE
-```
 
-#### Building Release APK
-```bash
+# Build Release APK for Mobile
 flutter build apk --release --dart-define=GEMINI_API_KEY=YOUR_GEMINI_KEY_HERE
 ```
 *Output location:* `build/app/outputs/flutter-apk/app-release.apk`
 
 ---
 
-## 🔒 Security & Confidentiality
+## 🔒 Security & Privacy Compliance
 
-- **Zero Data Harvesting:** All intercepted notifications, tasks, goals, and credentials are stored strictly on the user's physical device in sandboxed SQLite database files.
-- **No API Keys in Source Code:** `GEMINI_API_KEY` is injected strictly at build time via `--dart-define`.
+- **Zero Data Harvesting:** All intercepted notifications, tasks, goals, and credentials are saved strictly on the user's physical device in sandboxed SQLite database files.
+- **No Hardcoded Secrets:** `GEMINI_API_KEY` is injected at build time via `--dart-define`.
 - **Read-Only Scopes:** Google Classroom and Gmail integrations utilize strict `.readonly` OAuth2 scopes.
 
 ---
 
-## 🤝 Contributing & Developer Resources
-
-For detailed developer onboarding, database ERDs, and code contribution guidelines, refer to [DEVELOPER_ONBOARDING.md](docs/DEVELOPER_ONBOARDING.md).
-
----
-
-## 📜 License
+## 📄 License
 
 This project is open-source under the [MIT License](LICENSE).
