@@ -16,6 +16,7 @@ import 'prompts.dart';
 
 /// Implementation of GeminiAIService using google_generative_ai package.
 /// Handles task extraction, schedule generation, notification text, and streak nudges.
+/// Features defensive markdown code fence stripping to guarantee valid JSON decoding.
 class GeminiService {
   GeminiService({required String apiKey})
       : _model = GenerativeModel(
