@@ -82,7 +82,7 @@ class UpcomingTasksWidget extends ConsumerWidget {
                       ),
                       decoration: BoxDecoration(
                         color: AppColors.sourceColor(task.sourceString)
-                            .withOpacity(0.2),
+                            .withValues(alpha: 0.2),
                         borderRadius: BorderRadius.circular(radiusSm),
                       ),
                       child: Text(

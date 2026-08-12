@@ -140,17 +140,27 @@ class ConsistencyServiceImpl {
     final endDate = DateTime.now();
     final startDate = endDate.subtract(Duration(days: days));
 
+    final startStr = startDate.toDateString();
+    final endStr = endDate.toDateString();
+
     final metrics = await db.query(
       'daily_metric',
       where: 'date >= ? AND date <= ?',
-      whereArgs: [
-        startDate.toDateString(),
-        endDate.toDateString(),
-      ],
+      whereArgs: [startStr, endStr],
       orderBy: 'date ASC',
     );
 
-    // Create a map for quick lookup
+    // Fetch all goal counts grouped by date in a single query
+    final goalCounts = await db.rawQuery(
+      'SELECT date, COUNT(DISTINCT goal_id) as count FROM goal_progress WHERE date >= ? AND date <= ? GROUP BY date',
+      [startStr, endStr],
+    );
+
+    final goalCountMap = <String, int>{};
+    for (final row in goalCounts) {
+      goalCountMap[row['date'] as String] = (row['count'] as int?) ?? 0;
+    }
+
     final metricMap = <String, Map<String, dynamic>>{};
     for (final row in metrics) {
       metricMap[row['date'] as String] = row;
@@ -162,22 +172,20 @@ class ConsistencyServiceImpl {
       final date = startDate.add(Duration(days: i));
       final dateStr = date.toDateString();
       final metric = metricMap[dateStr];
+      final goalsProgressed = goalCountMap[dateStr] ?? 0;
 
       if (metric != null) {
-        // Count distinct goals with progress on this day
-        final goalCount = await db.rawQuery(
-          'SELECT COUNT(DISTINCT goal_id) as count FROM goal_progress WHERE date = ?',
-          [dateStr],
-        );
-
         heatmapDays.add(HeatmapDay(
           date: dateStr,
           siaScore: (metric['sia_score'] as num?)?.toDouble() ?? 0.0,
           tasksCompleted: (metric['tasks_completed'] as int?) ?? 0,
-          goalsProgressed: (goalCount.first['count'] as int?) ?? 0,
+          goalsProgressed: goalsProgressed,
         ));
       } else {
-        heatmapDays.add(HeatmapDay(date: dateStr));
+        heatmapDays.add(HeatmapDay(
+          date: dateStr,
+          goalsProgressed: goalsProgressed,
+        ));
       }
     }
 

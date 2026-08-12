@@ -87,7 +87,7 @@ class AppTheme {
       ),
       chipTheme: ChipThemeData(
         backgroundColor: AppColors.surfaceVariant,
-        selectedColor: AppColors.primary.withOpacity(0.3),
+        selectedColor: AppColors.primary.withValues(alpha: 0.3),
         labelStyle: const TextStyle(
           color: AppColors.onSurface,
           fontSize: 13,

@@ -43,10 +43,10 @@ class _TimetableEditorScreenState
   }
 
   void _showAddDialog() {
-    showDialog(
+    showDialog<void>(
       context: context,
-      builder: (context) => StatefulBuilder(
-        builder: (context, setDialogState) => AlertDialog(
+      builder: (dialogContext) => StatefulBuilder(
+        builder: (dialogContext, setDialogState) => AlertDialog(
           title: const Text('Add Class Entry'),
           content: SingleChildScrollView(
             child: Column(
@@ -58,7 +58,7 @@ class _TimetableEditorScreenState
                 ),
                 const SizedBox(height: spacingM),
                 DropdownButtonFormField<String>(
-                  value: _selectedDay,
+                  initialValue: _selectedDay,
                   decoration: const InputDecoration(labelText: 'Day of Week'),
                   items: _days
                       .map((d) => DropdownMenuItem(value: d, child: Text(d)))
@@ -150,7 +150,7 @@ class _TimetableEditorScreenState
                 _roomController.clear();
                 _teacherController.clear();
 
-                if (mounted) Navigator.pop(context);
+                if (mounted) Navigator.of(context).pop();
               },
               child: const Text('Save'),
             ),

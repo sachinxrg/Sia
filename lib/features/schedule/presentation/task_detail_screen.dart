@@ -4,7 +4,6 @@ import 'package:go_router/go_router.dart';
 
 import '../../../core/theme/app_colors.dart';
 import '../../../core/theme/app_theme.dart';
-import '../../../core/utils/date_extensions.dart';
 import '../providers/schedule_providers.dart';
 
 class TaskDetailScreen extends ConsumerWidget {
@@ -55,7 +54,7 @@ class TaskDetailScreen extends ConsumerWidget {
                       ),
                       decoration: BoxDecoration(
                         color: AppColors.sourceColor(task.sourceString)
-                            .withOpacity(0.2),
+                            .withValues(alpha: 0.2),
                         borderRadius: BorderRadius.circular(radiusSm),
                       ),
                       child: Text(
@@ -74,7 +73,7 @@ class TaskDetailScreen extends ConsumerWidget {
                       ),
                       decoration: BoxDecoration(
                         color: AppColors.priorityColor(task.priorityString)
-                            .withOpacity(0.2),
+                            .withValues(alpha: 0.2),
                         borderRadius: BorderRadius.circular(radiusSm),
                       ),
                       child: Text(

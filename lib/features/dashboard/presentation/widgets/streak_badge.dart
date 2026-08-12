@@ -24,8 +24,8 @@ class StreakBadge extends ConsumerWidget {
             borderRadius: BorderRadius.circular(radiusLg),
             side: BorderSide(
               color: isSecured
-                  ? AppColors.success.withOpacity(0.5)
-                  : AppColors.warning.withOpacity(0.3),
+                  ? AppColors.success.withValues(alpha: 0.5)
+                  : AppColors.warning.withValues(alpha: 0.3),
               width: 1,
             ),
           ),
@@ -39,7 +39,7 @@ class StreakBadge extends ConsumerWidget {
                   Container(
                     padding: const EdgeInsets.all(spacingS),
                     decoration: BoxDecoration(
-                      color: AppColors.warning.withOpacity(0.15),
+                      color: AppColors.warning.withValues(alpha: 0.15),
                       shape: BoxShape.circle,
                     ),
                     child: const Icon(
@@ -72,7 +72,7 @@ class StreakBadge extends ConsumerWidget {
                                   vertical: 2,
                                 ),
                                 decoration: BoxDecoration(
-                                  color: AppColors.success.withOpacity(0.2),
+                                  color: AppColors.success.withValues(alpha: 0.2),
                                   borderRadius:
                                       BorderRadius.circular(radiusSm),
                                 ),

@@ -1,11 +1,11 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../core/database/database_providers.dart';
-import '../data/goal_service_impl.dart';
-import '../data/consistency_service_impl.dart';
-import '../../../models/goal.dart';
 import '../../../models/consistency_streak.dart';
+import '../../../models/goal.dart';
 import '../../../models/heatmap_day.dart';
+import '../data/consistency_service_impl.dart';
+import '../data/goal_service_impl.dart';
 
 /// Provider for the GoalService.
 final goalServiceProvider = Provider<GoalServiceImpl>((ref) {

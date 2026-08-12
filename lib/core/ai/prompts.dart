@@ -1,3 +1,5 @@
+library;
+
 /// Prompt templates for the Gemini 1.5 Flash API.
 /// All placeholders use {PLACEHOLDER_NAME} format for string interpolation.
 

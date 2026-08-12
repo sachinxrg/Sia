@@ -1,3 +1,5 @@
+library;
+
 /// App-wide constants for SIA.
 
 // Database

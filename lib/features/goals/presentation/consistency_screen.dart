@@ -35,7 +35,7 @@ class ConsistencyScreen extends ConsumerWidget {
                         Container(
                           padding: const EdgeInsets.all(spacingM),
                           decoration: BoxDecoration(
-                            color: AppColors.warning.withOpacity(0.15),
+                            color: AppColors.warning.withValues(alpha: 0.15),
                             shape: BoxShape.circle,
                           ),
                           child: const Icon(

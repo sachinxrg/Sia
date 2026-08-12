@@ -52,7 +52,7 @@ class TimelineWidget extends ConsumerWidget {
                 padding: const EdgeInsets.all(spacingM),
                 decoration: BoxDecoration(
                   color: isCurrent
-                      ? AppColors.primary.withOpacity(0.2)
+                      ? AppColors.primary.withValues(alpha: 0.2)
                       : AppColors.surface,
                   borderRadius: BorderRadius.circular(radiusMd),
                   border: Border.all(
@@ -75,7 +75,7 @@ class TimelineWidget extends ConsumerWidget {
                             vertical: 2,
                           ),
                           decoration: BoxDecoration(
-                            color: _getTypeColor(block.type).withOpacity(0.2),
+                            color: _getTypeColor(block.type).withValues(alpha: 0.2),
                             borderRadius: BorderRadius.circular(radiusSm),
                           ),
                           child: Text(

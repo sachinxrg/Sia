@@ -131,7 +131,7 @@ class MainShell extends StatelessWidget {
           color: AppColors.surface,
           border: Border(
             top: BorderSide(
-              color: AppColors.surfaceVariant.withOpacity(0.5),
+              color: AppColors.surfaceVariant.withValues(alpha: 0.5),
               width: 0.5,
             ),
           ),

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../core/database/database_providers.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../core/theme/app_theme.dart';
 
@@ -105,7 +104,7 @@ class _IntegrationSettingsScreenState
           ),
           const SizedBox(height: spacingXs),
           Card(
-            color: AppColors.surfaceVariant.withOpacity(0.5),
+            color: AppColors.surfaceVariant.withValues(alpha: 0.5),
             child: Padding(
               padding: const EdgeInsets.all(spacingM),
               child: Text(

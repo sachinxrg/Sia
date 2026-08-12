@@ -47,6 +47,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen>
 
       if (mounted) {
         final isOnboarded = await ref.read(isOnboardedProvider.future);
+        if (!mounted) return;
         if (isOnboarded) {
           context.go('/dashboard');
         } else {
@@ -102,7 +103,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen>
                         ),
                         boxShadow: [
                           BoxShadow(
-                            color: AppColors.primary.withOpacity(0.4),
+                            color: AppColors.primary.withValues(alpha: 0.4),
                             blurRadius: 24,
                             spreadRadius: 4,
                           ),

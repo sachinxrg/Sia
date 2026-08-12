@@ -1,10 +1,10 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../core/database/database_providers.dart';
-import '../data/schedule_service_impl.dart';
 import '../../../models/task.dart';
 import '../../../models/timeline_block.dart';
 import '../../../models/timetable_entry.dart';
+import '../data/schedule_service_impl.dart';
 
 /// Provider for the ScheduleService.
 final scheduleServiceProvider = Provider<ScheduleServiceImpl>((ref) {

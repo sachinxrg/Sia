@@ -1,3 +1,5 @@
+library;
+
 /// SQL migration scripts for SIA's local SQLite database.
 /// Each migration is a list of SQL statements to run in order.
 

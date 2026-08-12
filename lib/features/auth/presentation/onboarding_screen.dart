@@ -162,7 +162,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                         children: [
                           Expanded(
                             child: DropdownButtonFormField<String>(
-                              value: _selectedDay,
+                              initialValue: _selectedDay,
                               decoration:
                                   const InputDecoration(labelText: 'Day'),
                               items: _days

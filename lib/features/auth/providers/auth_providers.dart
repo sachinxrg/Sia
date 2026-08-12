@@ -1,8 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../core/database/database_providers.dart';
-import '../data/auth_service_impl.dart';
 import '../../../models/user_profile.dart';
+import '../data/auth_service_impl.dart';
 
 /// Provider for the AuthService.
 final authServiceProvider = Provider<AuthServiceImpl>((ref) {

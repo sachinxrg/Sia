@@ -1,12 +1,10 @@
 import 'dart:developer' as dev;
 
-import 'package:sqflite/sqflite.dart';
-
 import '../../../core/database/database_service.dart';
 import '../../../core/utils/date_extensions.dart';
 import '../../../models/task.dart';
-import '../../../models/timetable_entry.dart';
 import '../../../models/timeline_block.dart';
+import '../../../models/timetable_entry.dart';
 
 /// Manages task CRUD operations, schedule queries, and timeline generation.
 class ScheduleServiceImpl {
@@ -229,9 +227,11 @@ class ScheduleServiceImpl {
     );
 
     if (existing.isEmpty) {
+      final initialScore = field == 'tasks_completed' ? 70.0 : 0.0;
       await db.insert('daily_metric', {
         'date': today,
         field: 1,
+        'sia_score': initialScore,
         'created_at': DateTime.now().toIso8601String(),
       });
     } else {
@@ -239,6 +239,31 @@ class ScheduleServiceImpl {
         'UPDATE daily_metric SET $field = $field + 1 WHERE date = ?',
         [today],
       );
+
+      // Recalculate SIA Score dynamically
+      final updated = await db.query(
+        'daily_metric',
+        where: 'date = ?',
+        whereArgs: [today],
+      );
+      if (updated.isNotEmpty) {
+        final row = updated.first;
+        final created = (row['tasks_created'] as int?) ?? 0;
+        final completed = (row['tasks_completed'] as int?) ?? 0;
+        final sent = (row['notifications_sent'] as int?) ?? 0;
+        final acted = (row['notifications_acted_on'] as int?) ?? 0;
+
+        final compRatio = created > 0 ? (completed / created) : (completed > 0 ? 1.0 : 0.0);
+        final actRatio = sent > 0 ? (acted / sent) : 0.0;
+        final newScore = (compRatio * 70.0 + actRatio * 30.0).clamp(0.0, 100.0);
+
+        await db.update(
+          'daily_metric',
+          {'sia_score': newScore},
+          where: 'date = ?',
+          whereArgs: [today],
+        );
+      }
     }
   }
 
@@ -278,7 +303,7 @@ class ScheduleServiceImpl {
         isCompleted: (map['is_completed'] as int?) == 1,
         isDeleted: (map['is_deleted'] as int?) == 1,
         aiConfidence: map['ai_confidence'] != null
-            ? double.tryParse(map['ai_confidence'] as String)
+            ? double.tryParse(map['ai_confidence'].toString())
             : null,
         createdAt: DateTime.parse(map['created_at'] as String),
         updatedAt: DateTime.parse(map['updated_at'] as String),

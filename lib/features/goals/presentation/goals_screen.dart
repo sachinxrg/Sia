@@ -29,7 +29,7 @@ class _GoalsScreenState extends ConsumerState<GoalsScreen> {
     GoalTargetType targetType = GoalTargetType.dailyHabit;
     DateTime? deadline;
 
-    showModalBottomSheet(
+    showModalBottomSheet<void>(
       context: context,
       isScrollControlled: true,
       builder: (context) => StatefulBuilder(
@@ -62,7 +62,7 @@ class _GoalsScreenState extends ConsumerState<GoalsScreen> {
                 children: [
                   Expanded(
                     child: DropdownButtonFormField<GoalCategory>(
-                      value: category,
+                      initialValue: category,
                       decoration: const InputDecoration(labelText: 'Category'),
                       items: GoalCategory.values
                           .map((c) => DropdownMenuItem(
@@ -78,7 +78,7 @@ class _GoalsScreenState extends ConsumerState<GoalsScreen> {
                   const SizedBox(width: spacingS),
                   Expanded(
                     child: DropdownButtonFormField<GoalTargetType>(
-                      value: targetType,
+                      initialValue: targetType,
                       decoration: const InputDecoration(labelText: 'Type'),
                       items: GoalTargetType.values
                           .map((t) => DropdownMenuItem(
@@ -257,7 +257,7 @@ class _GoalsScreenState extends ConsumerState<GoalsScreen> {
                       onTap: () => context.go('/goals/${goal.id}'),
                       onLogTap: () {
                         if (goal.id != null) {
-                          showModalBottomSheet(
+                          showModalBottomSheet<void>(
                             context: context,
                             isScrollControlled: true,
                             builder: (context) => GoalLogSheet(goal: goal),

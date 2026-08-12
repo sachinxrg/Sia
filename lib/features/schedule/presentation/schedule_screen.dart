@@ -37,7 +37,7 @@ class _ScheduleScreenState extends ConsumerState<ScheduleScreen>
     TaskPriority selectedPriority = TaskPriority.medium;
     DateTime? selectedDeadline;
 
-    showModalBottomSheet(
+    showModalBottomSheet<void>(
       context: context,
       isScrollControlled: true,
       builder: (context) => StatefulBuilder(
@@ -77,7 +77,7 @@ class _ScheduleScreenState extends ConsumerState<ScheduleScreen>
                 children: [
                   Expanded(
                     child: DropdownButtonFormField<TaskPriority>(
-                      value: selectedPriority,
+                      initialValue: selectedPriority,
                       decoration:
                           const InputDecoration(labelText: 'Priority'),
                       items: TaskPriority.values
