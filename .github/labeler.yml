@@ -1,0 +1,45 @@
+ai:
+  - changed-files:
+      - any-glob-to-any-file: 'lib/core/ai/**'
+
+database:
+  - changed-files:
+      - any-glob-to-any-file: 'lib/core/database/**'
+
+notifications:
+  - changed-files:
+      - any-glob-to-any-file: 'lib/core/notifications/**'
+
+ui/dashboard:
+  - changed-files:
+      - any-glob-to-any-file: 'lib/features/dashboard/**'
+
+ui/goals:
+  - changed-files:
+      - any-glob-to-any-file: 'lib/features/goals/**'
+
+ui/schedule:
+  - changed-files:
+      - any-glob-to-any-file: 'lib/features/schedule/**'
+
+integrations:
+  - changed-files:
+      - any-glob-to-any-file: 'lib/features/integrations/**'
+
+android:
+  - changed-files:
+      - any-glob-to-any-file: 'android/**'
+
+documentation:
+  - changed-files:
+      - any-glob-to-any-file:
+          - '*.md'
+          - 'docs/**'
+
+ci/cd:
+  - changed-files:
+      - any-glob-to-any-file: '.github/**'
+
+tests:
+  - changed-files:
+      - any-glob-to-any-file: 'test/**'

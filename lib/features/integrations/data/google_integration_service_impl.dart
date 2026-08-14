@@ -100,7 +100,8 @@ class GoogleIntegrationServiceImpl {
       await _setLastSyncTime('classroom', now);
       client.close();
 
-      dev.log('Fetched ${assignments.length} assignments from ${courses.length} courses',
+      dev.log(
+          'Fetched ${assignments.length} assignments from ${courses.length} courses',
           name: 'GoogleIntegrationService');
       return assignments;
     } catch (e) {
@@ -135,18 +136,21 @@ class GoogleIntegrationServiceImpl {
         final message = await gmailApi.users.messages.get('me', msgId);
 
         final headers = message.payload?.headers ?? [];
-        final fromHeader =
-            headers.firstWhere((h) => h.name == 'From', orElse: () => gmail_api.MessagePartHeader())
-                .value;
-        final subjectHeader =
-            headers.firstWhere((h) => h.name == 'Subject', orElse: () => gmail_api.MessagePartHeader())
-                .value;
+        final fromHeader = headers
+            .firstWhere((h) => h.name == 'From',
+                orElse: () => gmail_api.MessagePartHeader())
+            .value;
+        final subjectHeader = headers
+            .firstWhere((h) => h.name == 'Subject',
+                orElse: () => gmail_api.MessagePartHeader())
+            .value;
 
         // Only process emails from the last 7 days
         final internalDate = message.internalDate;
         DateTime receivedAt;
         if (internalDate != null) {
-          receivedAt = DateTime.fromMillisecondsSinceEpoch(int.parse(internalDate));
+          receivedAt =
+              DateTime.fromMillisecondsSinceEpoch(int.parse(internalDate));
           if (receivedAt.isBefore(now.subtract(const Duration(days: 7)))) {
             continue;
           }
@@ -196,14 +200,16 @@ class GoogleIntegrationServiceImpl {
   /// Returns the timestamp of the last successful sync for a service.
   Future<DateTime?> getLastSyncTime(String service) async {
     final prefs = await SharedPreferences.getInstance();
-    final key = service == 'classroom' ? kPrefLastClassroomSync : kPrefLastGmailSync;
+    final key =
+        service == 'classroom' ? kPrefLastClassroomSync : kPrefLastGmailSync;
     final stored = prefs.getString(key);
     return stored != null ? DateTime.tryParse(stored) : null;
   }
 
   Future<void> _setLastSyncTime(String service, DateTime time) async {
     final prefs = await SharedPreferences.getInstance();
-    final key = service == 'classroom' ? kPrefLastClassroomSync : kPrefLastGmailSync;
+    final key =
+        service == 'classroom' ? kPrefLastClassroomSync : kPrefLastGmailSync;
     await prefs.setString(key, time.toIso8601String());
   }
 
@@ -212,7 +218,8 @@ class GoogleIntegrationServiceImpl {
     return authenticatedClient(
       http.Client(),
       AccessCredentials(
-        AccessToken('Bearer', token, DateTime.now().add(const Duration(hours: 1)).toUtc()),
+        AccessToken('Bearer', token,
+            DateTime.now().add(const Duration(hours: 1)).toUtc()),
         null,
         kGoogleScopes,
       ),
@@ -221,7 +228,8 @@ class GoogleIntegrationServiceImpl {
 
   Future<List<ClassroomAssignment>> _getCachedAssignments() async {
     final db = await _databaseService.database;
-    final rows = await db.query('classroom_assignment', orderBy: 'due_date ASC');
+    final rows =
+        await db.query('classroom_assignment', orderBy: 'due_date ASC');
     return rows.map((row) {
       return ClassroomAssignment(
         id: row['id'] as int?,

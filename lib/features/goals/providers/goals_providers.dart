@@ -51,8 +51,7 @@ final overallStreakProvider = FutureProvider<ConsistencyStreak>((ref) async {
 });
 
 /// Provider for all streaks.
-final allStreaksProvider =
-    FutureProvider<List<ConsistencyStreak>>((ref) async {
+final allStreaksProvider = FutureProvider<List<ConsistencyStreak>>((ref) async {
   final service = ref.watch(consistencyServiceProvider);
   return service.getAllStreaks();
 });

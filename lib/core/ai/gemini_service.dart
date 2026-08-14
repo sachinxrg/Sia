@@ -49,9 +49,7 @@ class GeminiService {
   }) async {
     final whatsappData = notifications.isEmpty
         ? 'No WhatsApp notifications.'
-        : notifications
-            .map((n) => '- [${n.title}]: ${n.body}')
-            .join('\n');
+        : notifications.map((n) => '- [${n.title}]: ${n.body}').join('\n');
 
     final classroomData = assignments.isEmpty
         ? 'No Classroom assignments.'
@@ -63,7 +61,8 @@ class GeminiService {
     final gmailData = emails.isEmpty
         ? 'No Gmail items.'
         : emails
-            .map((e) => '- From: ${e.fromAddress} | Subject: ${e.subject} | ${e.snippet}')
+            .map((e) =>
+                '- From: ${e.fromAddress} | Subject: ${e.subject} | ${e.snippet}')
             .join('\n');
 
     final prompt = Prompts.taskExtraction(
@@ -120,10 +119,10 @@ class GeminiService {
 
     try {
       final content = [Content.text(prompt)];
-      final response = await _textModel
-          .generateContent(content)
-          .timeout(kGeminiTimeout);
-      return response.text?.trim() ?? 'You have a task coming up: ${task.title}';
+      final response =
+          await _textModel.generateContent(content).timeout(kGeminiTimeout);
+      return response.text?.trim() ??
+          'You have a task coming up: ${task.title}';
     } catch (e) {
       dev.log('WARN: Notification text generation failed, using fallback: $e',
           name: 'GeminiService');
@@ -177,8 +176,7 @@ class GeminiService {
     if (jsonResponse == null) return [];
 
     try {
-      final List<dynamic> blockList =
-          jsonDecode(jsonResponse) as List<dynamic>;
+      final List<dynamic> blockList = jsonDecode(jsonResponse) as List<dynamic>;
       return blockList.map((item) {
         final map = item as Map<String, dynamic>;
         return ScheduleBlock(
@@ -219,9 +217,8 @@ class GeminiService {
 
     try {
       final content = [Content.text(prompt)];
-      final response = await _textModel
-          .generateContent(content)
-          .timeout(kGeminiTimeout);
+      final response =
+          await _textModel.generateContent(content).timeout(kGeminiTimeout);
       return response.text?.trim() ??
           'Keep your $currentStreak-day streak alive!';
     } catch (e) {
@@ -236,9 +233,8 @@ class GeminiService {
     for (var attempt = 0; attempt <= kGeminiMaxRetries; attempt++) {
       try {
         final content = [Content.text(prompt)];
-        final response = await _model
-            .generateContent(content)
-            .timeout(kGeminiTimeout);
+        final response =
+            await _model.generateContent(content).timeout(kGeminiTimeout);
 
         final text = response.text;
         if (text == null || text.isEmpty) {

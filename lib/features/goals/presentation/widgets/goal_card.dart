@@ -38,7 +38,7 @@ class GoalCard extends StatelessWidget {
                   Container(
                     width: 10,
                     height: 10,
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                       shape: BoxShape.circle,
                       color: AppColors.primary,
                     ),

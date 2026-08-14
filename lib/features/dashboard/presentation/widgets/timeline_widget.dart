@@ -75,7 +75,8 @@ class TimelineWidget extends ConsumerWidget {
                             vertical: 2,
                           ),
                           decoration: BoxDecoration(
-                            color: _getTypeColor(block.type).withValues(alpha: 0.2),
+                            color: _getTypeColor(block.type)
+                                .withValues(alpha: 0.2),
                             borderRadius: BorderRadius.circular(radiusSm),
                           ),
                           child: Text(

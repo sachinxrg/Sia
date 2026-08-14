@@ -85,7 +85,8 @@ class WhatsAppHandler {
     );
 
     if (existing.isNotEmpty) {
-      dev.log('Duplicate notification skipped (hash: ${hash.substring(0, 8)}...)',
+      dev.log(
+          'Duplicate notification skipped (hash: ${hash.substring(0, 8)}...)',
           name: 'WhatsAppHandler');
       return;
     }

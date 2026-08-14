@@ -11,8 +11,7 @@ import '../utils/constants.dart';
 class LocalNotificationService {
   LocalNotificationService._();
 
-  static final LocalNotificationService instance =
-      LocalNotificationService._();
+  static final LocalNotificationService instance = LocalNotificationService._();
 
   final FlutterLocalNotificationsPlugin _plugin =
       FlutterLocalNotificationsPlugin();
@@ -105,12 +104,10 @@ class LocalNotificationService {
     final androidDetails = AndroidNotificationDetails(
       channelId,
       _channelName(channelId),
-      importance: channelId == kChannelIdEscalations
-          ? Importance.max
-          : Importance.high,
-      priority: channelId == kChannelIdEscalations
-          ? Priority.max
-          : Priority.high,
+      importance:
+          channelId == kChannelIdEscalations ? Importance.max : Importance.high,
+      priority:
+          channelId == kChannelIdEscalations ? Priority.max : Priority.high,
       styleInformation: BigTextStyleInformation(body),
       autoCancel: true,
     );

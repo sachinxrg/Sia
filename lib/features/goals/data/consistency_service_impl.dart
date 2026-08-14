@@ -233,9 +233,7 @@ class ConsistencyServiceImpl {
     final whereClause = goalId != null
         ? 'streak_type = ? AND goal_id = ?'
         : 'streak_type = ? AND goal_id IS NULL';
-    final whereArgs = goalId != null
-        ? [streakType, goalId]
-        : [streakType];
+    final whereArgs = goalId != null ? [streakType, goalId] : [streakType];
 
     final existing = await db.query(
       'consistency_streak',

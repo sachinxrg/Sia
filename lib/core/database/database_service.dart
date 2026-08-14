@@ -133,8 +133,7 @@ class DatabaseService {
       batch.delete('notification_log',
           where: 'created_at < ?', whereArgs: [cutoffDate]);
       batch.delete('daily_metric',
-          where: 'date < ?',
-          whereArgs: [cutoffDate.substring(0, 10)]);
+          where: 'date < ?', whereArgs: [cutoffDate.substring(0, 10)]);
 
       await batch.commit();
     } catch (e) {

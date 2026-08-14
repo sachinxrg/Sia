@@ -62,12 +62,10 @@ class ConsistencyScreen extends ConsumerWidget {
                         const SizedBox(height: spacingS),
                         Text(
                           'All-Time Longest Streak: ${streak.longestStreak} days',
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodyMedium
-                              ?.copyWith(
-                                color: AppColors.onSurfaceVariant,
-                              ),
+                          style:
+                              Theme.of(context).textTheme.bodyMedium?.copyWith(
+                                    color: AppColors.onSurfaceVariant,
+                                  ),
                         ),
                       ],
                     ),

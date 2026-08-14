@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Community Discussions
+    url: https://github.com/sachinxrg/Sia/discussions
+    about: Ask questions, share ideas, and discuss with other Sia developers and users.
+  - name: Security Vulnerability Reporting
+    url: https://github.com/sachinxrg/Sia/security/advisories/new
+    about: Report sensitive security vulnerabilities privately.

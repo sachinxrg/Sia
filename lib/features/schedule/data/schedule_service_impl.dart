@@ -97,7 +97,8 @@ class ScheduleServiceImpl {
     final now = DateTime.now().toIso8601String();
     final rows = await db.query(
       'task',
-      where: 'is_completed = 0 AND is_deleted = 0 AND deadline IS NOT NULL AND deadline < ?',
+      where:
+          'is_completed = 0 AND is_deleted = 0 AND deadline IS NOT NULL AND deadline < ?',
       whereArgs: [now],
       orderBy: 'deadline ASC',
     );
@@ -110,7 +111,8 @@ class ScheduleServiceImpl {
     final rows = await db.query(
       'task',
       where: 'is_completed = 0 AND is_deleted = 0',
-      orderBy: 'CASE priority WHEN "CRITICAL" THEN 0 WHEN "HIGH" THEN 1 WHEN "MEDIUM" THEN 2 ELSE 3 END, deadline ASC',
+      orderBy:
+          'CASE priority WHEN "CRITICAL" THEN 0 WHEN "HIGH" THEN 1 WHEN "MEDIUM" THEN 2 ELSE 3 END, deadline ASC',
     );
     return rows.map(_taskFromMap).toList();
   }
@@ -204,7 +206,8 @@ class ScheduleServiceImpl {
     final rows = await db.query(
       'timetable_entry',
       where: 'is_active = 1',
-      orderBy: "CASE day_of_week WHEN 'MONDAY' THEN 0 WHEN 'TUESDAY' THEN 1 WHEN 'WEDNESDAY' THEN 2 WHEN 'THURSDAY' THEN 3 WHEN 'FRIDAY' THEN 4 WHEN 'SATURDAY' THEN 5 ELSE 6 END, start_time ASC",
+      orderBy:
+          "CASE day_of_week WHEN 'MONDAY' THEN 0 WHEN 'TUESDAY' THEN 1 WHEN 'WEDNESDAY' THEN 2 WHEN 'THURSDAY' THEN 3 WHEN 'FRIDAY' THEN 4 WHEN 'SATURDAY' THEN 5 ELSE 6 END, start_time ASC",
     );
     return rows.map(_timetableFromMap).toList();
   }
@@ -253,7 +256,8 @@ class ScheduleServiceImpl {
         final sent = (row['notifications_sent'] as int?) ?? 0;
         final acted = (row['notifications_acted_on'] as int?) ?? 0;
 
-        final compRatio = created > 0 ? (completed / created) : (completed > 0 ? 1.0 : 0.0);
+        final compRatio =
+            created > 0 ? (completed / created) : (completed > 0 ? 1.0 : 0.0);
         final actRatio = sent > 0 ? (acted / sent) : 0.0;
         final newScore = (compRatio * 70.0 + actRatio * 30.0).clamp(0.0, 100.0);
 
@@ -312,8 +316,7 @@ class ScheduleServiceImpl {
             : null,
       );
 
-  TimetableEntry _timetableFromMap(Map<String, dynamic> map) =>
-      TimetableEntry(
+  TimetableEntry _timetableFromMap(Map<String, dynamic> map) => TimetableEntry(
         id: map['id'] as int?,
         subject: map['subject'] as String,
         dayOfWeek: map['day_of_week'] as String,

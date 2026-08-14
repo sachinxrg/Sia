@@ -78,7 +78,8 @@ class DashboardScreen extends ConsumerWidget {
                   final completed = tasks.where((t) => t.isCompleted).length;
                   final total = tasks.length;
                   final pending = total - completed;
-                  final siaScore = total > 0 ? (completed / total * 100) : 100.0;
+                  final siaScore =
+                      total > 0 ? (completed / total * 100) : 100.0;
 
                   return MetricsCard(
                     completedCount: completed,

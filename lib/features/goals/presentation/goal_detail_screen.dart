@@ -104,7 +104,8 @@ class GoalDetailScreen extends ConsumerWidget {
                         color: AppColors.primaryLight,
                       ),
                 ),
-                if (goal.description != null && goal.description!.isNotEmpty) ...[
+                if (goal.description != null &&
+                    goal.description!.isNotEmpty) ...[
                   const SizedBox(height: spacingM),
                   Text(
                     goal.description!,
@@ -114,7 +115,6 @@ class GoalDetailScreen extends ConsumerWidget {
                   ),
                 ],
                 const SizedBox(height: spacingXl),
-
                 Text(
                   'Recent Progress Logs',
                   style: Theme.of(context).textTheme.titleLarge,
@@ -123,7 +123,8 @@ class GoalDetailScreen extends ConsumerWidget {
                 FutureBuilder<List<GoalProgress>>(
                   future: ref.read(goalServiceProvider).getProgress(
                         goalId: goalId,
-                        startDate: DateTime.now().subtract(const Duration(days: 30)),
+                        startDate:
+                            DateTime.now().subtract(const Duration(days: 30)),
                         endDate: DateTime.now(),
                       ),
                   builder: (context, snapshot) {
@@ -136,7 +137,8 @@ class GoalDetailScreen extends ConsumerWidget {
                       return const Card(
                         child: Padding(
                           padding: EdgeInsets.all(spacingM),
-                          child: Text('No progress logged in the last 30 days.'),
+                          child:
+                              Text('No progress logged in the last 30 days.'),
                         ),
                       );
                     }

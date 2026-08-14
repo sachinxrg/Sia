@@ -75,7 +75,8 @@ class AuthServiceImpl {
 
   /// Returns a valid OAuth2 access token, refreshing if needed.
   Future<String> getAccessToken() async {
-    final account = _googleSignIn.currentUser ?? await _googleSignIn.signInSilently();
+    final account =
+        _googleSignIn.currentUser ?? await _googleSignIn.signInSilently();
     if (account == null) {
       throw Exception('No signed-in user. Please sign in first.');
     }

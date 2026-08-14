@@ -1,0 +1,73 @@
+name: 🐛 Bug Report
+description: File a bug report to help us improve Sia
+title: "[Bug]: "
+labels: ["bug", "triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for reporting an issue! Please search existing issues first before submitting.
+  - type: textarea
+    id: description
+    attributes:
+      label: Bug Description
+      description: A clear and concise description of what the bug is.
+      placeholder: When I click the AI Optimize button, the app displays an unhandled format exception...
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to Reproduce
+      description: Detailed steps to reproduce the issue.
+      placeholder: |
+        1. Open the Timetable editor screen
+        2. Add a new slot for Monday at 10:00 AM
+        3. Navigate to Dashboard
+        4. See error
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected Behavior
+      description: What did you expect to happen?
+      placeholder: The dashboard timeline should seamlessly reflect the newly created timetable slot.
+    validations:
+      required: true
+  - type: textarea
+    id: flutter_doctor
+    attributes:
+      label: Flutter Doctor Output
+      description: Paste the output of `flutter doctor -v`
+      render: shell
+      placeholder: |
+        [✓] Flutter (Channel stable, 3.22.0, on Microsoft Windows [Version 10.0.22631])
+        [✓] Android toolchain - develop for Android devices (Android SDK version 34.0.0)
+    validations:
+      required: true
+  - type: input
+    id: device_info
+    attributes:
+      label: Device & OS
+      description: What device and OS version did you experience this on?
+      placeholder: Pixel 7 (Android 14) / Windows 11
+    validations:
+      required: false
+  - type: textarea
+    id: logs
+    attributes:
+      label: Logs / Stack Traces
+      description: Paste relevant exception logs or stack traces.
+      render: shell
+    validations:
+      required: false
+  - type: checkboxes
+    id: checkboxes
+    attributes:
+      label: Confirmation
+      options:
+        - label: I have searched existing issues and verified this is not a duplicate.
+          required: true
+        - label: I am using the latest version of the main branch.
+          required: true

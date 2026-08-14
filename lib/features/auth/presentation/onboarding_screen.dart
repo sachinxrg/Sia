@@ -187,7 +187,8 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                                   setState(() => _startTime = time);
                                 }
                               },
-                              child: Text('Start: ${_startTime.format(context)}'),
+                              child:
+                                  Text('Start: ${_startTime.format(context)}'),
                             ),
                           ),
                         ],

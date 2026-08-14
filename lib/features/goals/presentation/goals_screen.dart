@@ -99,15 +99,18 @@ class _GoalsScreenState extends ConsumerState<GoalsScreen> {
                   Expanded(
                     child: TextField(
                       controller: targetValueController,
-                      keyboardType: const TextInputType.numberWithOptions(decimal: true),
-                      decoration: const InputDecoration(labelText: 'Target Value'),
+                      keyboardType:
+                          const TextInputType.numberWithOptions(decimal: true),
+                      decoration:
+                          const InputDecoration(labelText: 'Target Value'),
                     ),
                   ),
                   const SizedBox(width: spacingS),
                   Expanded(
                     child: TextField(
                       controller: unitController,
-                      decoration: const InputDecoration(labelText: 'Unit (e.g. hours)'),
+                      decoration:
+                          const InputDecoration(labelText: 'Unit (e.g. hours)'),
                     ),
                   ),
                 ],
@@ -126,7 +129,9 @@ class _GoalsScreenState extends ConsumerState<GoalsScreen> {
                           : descController.text.trim(),
                       category: category,
                       targetType: targetType,
-                      targetValue: double.tryParse(targetValueController.text.trim()) ?? 1.0,
+                      targetValue:
+                          double.tryParse(targetValueController.text.trim()) ??
+                              1.0,
                       unit: unitController.text.trim().isEmpty
                           ? 'hours'
                           : unitController.text.trim(),
@@ -269,7 +274,8 @@ class _GoalsScreenState extends ConsumerState<GoalsScreen> {
                 );
               },
               loading: () => const Center(child: CircularProgressIndicator()),
-              error: (err, _) => Center(child: Text('Error loading goals: $err')),
+              error: (err, _) =>
+                  Center(child: Text('Error loading goals: $err')),
             ),
           ],
         ),

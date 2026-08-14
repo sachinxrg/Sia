@@ -1,0 +1,32 @@
+name: 🧠 AI Prompt / Logic Improvement
+description: Suggest improvements to Gemini AI prompts, heuristics, or scheduling logic
+title: "[AI/Prompt]: "
+labels: ["ai", "enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use this template to propose optimizations for Gemini AI prompt templates, reasoning chains, or schedule conflict resolution logic.
+  - type: textarea
+    id: current_prompt
+    attributes:
+      label: Current Prompt / AI Behavior
+      description: Describe the current prompt or behavior that can be improved.
+      placeholder: Currently, the morning briefing prompt does not prioritize exam preparation when an exam is less than 48 hours away.
+    validations:
+      required: true
+  - type: textarea
+    id: proposed_prompt
+    attributes:
+      label: Proposed System Instruction or Heuristic
+      description: What prompt modifications or reasoning rules do you recommend?
+      placeholder: Add a weighted urgency rule in the system prompt instructing Gemini to allocate 90-minute revision blocks when an exam is imminent.
+    validations:
+      required: true
+  - type: textarea
+    id: example_output
+    attributes:
+      label: Expected Sample AI Output
+      description: Provide an example of how the generated schedule or briefing should look.
+    validations:
+      required: false

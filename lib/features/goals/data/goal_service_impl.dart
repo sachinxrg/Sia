@@ -143,7 +143,8 @@ class GoalServiceImpl {
       'created_at': progress.createdAt.toIso8601String(),
     });
 
-    dev.log('Logged progress: goal=$goalId, value=$value, date=${progress.date}',
+    dev.log(
+        'Logged progress: goal=$goalId, value=$value, date=${progress.date}',
         name: 'GoalService');
     return progress.copyWith(id: id);
   }

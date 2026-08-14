@@ -5,11 +5,16 @@ import 'package:sia/models/heatmap_day.dart';
 void main() {
   group('Consistency & Productivity Metrics Tests', () {
     test('HeatmapDay intensity calculation based on SIA Score', () {
-      const day0 = HeatmapDay(date: '2026-08-01', siaScore: 0.0, tasksCompleted: 0);
-      const dayLow = HeatmapDay(date: '2026-08-02', siaScore: 20.0, tasksCompleted: 1);
-      const dayMed = HeatmapDay(date: '2026-08-03', siaScore: 45.0, tasksCompleted: 2);
-      const dayHigh = HeatmapDay(date: '2026-08-04', siaScore: 70.0, tasksCompleted: 3);
-      const dayMax = HeatmapDay(date: '2026-08-05', siaScore: 95.0, tasksCompleted: 4);
+      const day0 =
+          HeatmapDay(date: '2026-08-01', siaScore: 0.0, tasksCompleted: 0);
+      const dayLow =
+          HeatmapDay(date: '2026-08-02', siaScore: 20.0, tasksCompleted: 1);
+      const dayMed =
+          HeatmapDay(date: '2026-08-03', siaScore: 45.0, tasksCompleted: 2);
+      const dayHigh =
+          HeatmapDay(date: '2026-08-04', siaScore: 70.0, tasksCompleted: 3);
+      const dayMax =
+          HeatmapDay(date: '2026-08-05', siaScore: 95.0, tasksCompleted: 4);
 
       expect(day0.intensityLevel, equals(0));
       expect(dayLow.intensityLevel, equals(1));

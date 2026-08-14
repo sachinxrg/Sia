@@ -25,7 +25,8 @@ void main() {
     expect(find.text('Sign in with Google'), findsOneWidget);
   });
 
-  testWidgets('SiaApp navigates to DashboardScreen when authenticated and onboarded',
+  testWidgets(
+      'SiaApp navigates to DashboardScreen when authenticated and onboarded',
       (WidgetTester tester) async {
     await tester.pumpWidget(
       ProviderScope(

@@ -1,12 +1,12 @@
 # SIA — Smart Intelligent Assistant 🚀
 
 <p align="center">
+  <a href="https://github.com/sachinxrg/Sia/actions/workflows/ci.yml"><img src="https://github.com/sachinxrg/Sia/actions/workflows/ci.yml/badge.svg" alt="CI Pipeline" /></a>
   <img src="https://img.shields.io/badge/Flutter-3.44+-02569B?style=for-the-badge&logo=flutter&logoColor=white" alt="Flutter" />
   <img src="https://img.shields.io/badge/Dart-3.12+-0175C2?style=for-the-badge&logo=dart&logoColor=white" alt="Dart" />
   <img src="https://img.shields.io/badge/AI-Gemini%201.5%20Flash-4285F4?style=for-the-badge&logo=google&logoColor=white" alt="Gemini AI" />
   <img src="https://img.shields.io/badge/Database-SQLite%20sqflite-003B57?style=for-the-badge&logo=sqlite&logoColor=white" alt="SQLite" />
-  <img src="https://img.shields.io/badge/State-Riverpod%202.6-00599C?style=for-the-badge" alt="Riverpod" />
-  <img src="https://img.shields.io/badge/Cost-100%25%20Free%20Stack-00B894?style=for-the-badge" alt="Zero-Cost" />
+  <img src="https://img.shields.io/badge/PRs-Welcome-brightgreen?style=for-the-badge" alt="PRs Welcome" />
   <img src="https://img.shields.io/badge/License-MIT-purple?style=for-the-badge" alt="License" />
 </p>
 
@@ -207,6 +207,19 @@ flutter build apk --release --dart-define=GEMINI_API_KEY=YOUR_GEMINI_KEY_HERE
 
 ---
 
+## 🤝 Contributing & Community
+
+Contributions are what make the open-source community an inspiring place to learn, create, and build. Any contributions you make are **greatly appreciated**!
+
+- 📖 **Contribution Guide**: Check out [CONTRIBUTING.md](CONTRIBUTING.md) for local setup, architecture guide, and PR instructions.
+- 📜 **Code of Conduct**: Review our community pledge in [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md).
+- 🔒 **Security Policy**: Read our vulnerability disclosure process in [SECURITY.md](SECURITY.md).
+- 💬 **Support & Help**: Visit [SUPPORT.md](SUPPORT.md) and [GitHub Discussions](https://github.com/sachinxrg/Sia/discussions).
+- 🗺️ **Product Roadmap**: View future milestones in [ROADMAP.md](ROADMAP.md).
+- 📝 **Changelog**: See release history in [CHANGELOG.md](CHANGELOG.md).
+
+---
+
 ## 📄 License
 
-This project is open-source under the [MIT License](LICENSE).
+This project is licensed under the [MIT License](LICENSE) — see the [LICENSE](LICENSE) file for details.

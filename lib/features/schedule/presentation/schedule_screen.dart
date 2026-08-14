@@ -78,8 +78,7 @@ class _ScheduleScreenState extends ConsumerState<ScheduleScreen>
                   Expanded(
                     child: DropdownButtonFormField<TaskPriority>(
                       initialValue: selectedPriority,
-                      decoration:
-                          const InputDecoration(labelText: 'Priority'),
+                      decoration: const InputDecoration(labelText: 'Priority'),
                       items: TaskPriority.values
                           .map((p) => DropdownMenuItem(
                                 value: p,
@@ -246,9 +245,8 @@ class _ScheduleScreenState extends ConsumerState<ScheduleScreen>
                   title: Text(
                     task.title,
                     style: TextStyle(
-                      decoration: task.isCompleted
-                          ? TextDecoration.lineThrough
-                          : null,
+                      decoration:
+                          task.isCompleted ? TextDecoration.lineThrough : null,
                     ),
                   ),
                   subtitle: Text(

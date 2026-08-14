@@ -14,8 +14,7 @@ class TimetableEditorScreen extends ConsumerStatefulWidget {
       _TimetableEditorScreenState();
 }
 
-class _TimetableEditorScreenState
-    extends ConsumerState<TimetableEditorScreen> {
+class _TimetableEditorScreenState extends ConsumerState<TimetableEditorScreen> {
   final _subjectController = TextEditingController();
   final _roomController = TextEditingController();
   final _teacherController = TextEditingController();
@@ -185,7 +184,8 @@ class _TimetableEditorScreenState
                   subtitle: Text(
                       '${entry.dayOfWeek} • ${entry.startTime} - ${entry.endTime} ${entry.room != null ? "(${entry.room})" : ""}'),
                   trailing: IconButton(
-                    icon: const Icon(Icons.delete_outline, color: AppColors.error),
+                    icon: const Icon(Icons.delete_outline,
+                        color: AppColors.error),
                     onPressed: () async {
                       if (entry.id != null) {
                         await ref

@@ -1,0 +1,32 @@
+name: 📝 Documentation Update
+description: Suggest improvements, clarifications, or corrections to Sia documentation
+title: "[Docs]: "
+labels: ["documentation"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for helping keep Sia's documentation clear and up to date!
+  - type: textarea
+    id: doc_location
+    attributes:
+      label: Documentation Page / File
+      description: Where is the documentation located?
+      placeholder: docs/ARCHITECTURE.md or README.md
+    validations:
+      required: true
+  - type: textarea
+    id: issue_description
+    attributes:
+      label: Description of the Documentation Issue
+      description: What is incorrect, unclear, or missing?
+      placeholder: The setup section in CONTRIBUTING.md does not mention generating Freezed models using build_runner.
+    validations:
+      required: true
+  - type: textarea
+    id: suggested_changes
+    attributes:
+      label: Suggested Correction or Addition
+      description: What should the documentation say instead?
+    validations:
+      required: false

@@ -63,7 +63,8 @@ class _IntegrationSettingsScreenState
         children: [
           Card(
             child: SwitchListTile(
-              secondary: const Icon(Icons.chat_rounded, color: AppColors.whatsapp),
+              secondary:
+                  const Icon(Icons.chat_rounded, color: AppColors.whatsapp),
               title: const Text('WhatsApp Interceptor'),
               subtitle: const Text(
                 'Intercepts local notification alerts to extract study tasks',

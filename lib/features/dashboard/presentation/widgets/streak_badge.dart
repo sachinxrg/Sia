@@ -72,9 +72,9 @@ class StreakBadge extends ConsumerWidget {
                                   vertical: 2,
                                 ),
                                 decoration: BoxDecoration(
-                                  color: AppColors.success.withValues(alpha: 0.2),
-                                  borderRadius:
-                                      BorderRadius.circular(radiusSm),
+                                  color:
+                                      AppColors.success.withValues(alpha: 0.2),
+                                  borderRadius: BorderRadius.circular(radiusSm),
                                 ),
                                 child: Text(
                                   'Secured Today ✓',

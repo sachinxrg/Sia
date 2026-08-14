@@ -92,7 +92,8 @@ class TaskDetailScreen extends ConsumerWidget {
                   style: Theme.of(context).textTheme.headlineMedium,
                 ),
                 const SizedBox(height: spacingM),
-                if (task.description != null && task.description!.isNotEmpty) ...[
+                if (task.description != null &&
+                    task.description!.isNotEmpty) ...[
                   Text(
                     'Description',
                     style: Theme.of(context).textTheme.titleMedium,
