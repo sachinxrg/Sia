@@ -80,8 +80,10 @@ class LocalNotificationService {
     }
 
     _isInitialized = true;
-    dev.log('Notification service initialized with 4 channels',
-        name: 'LocalNotificationService');
+    dev.log(
+      'Notification service initialized with 4 channels',
+      name: 'LocalNotificationService',
+    );
   }
 
   /// Schedules a notification for a specific time.
@@ -96,8 +98,10 @@ class LocalNotificationService {
 
     // Don't schedule notifications in the past
     if (scheduledTz.isBefore(tz.TZDateTime.now(tz.local))) {
-      dev.log('WARN: Skipping past notification (id=$id, time=$scheduledTime)',
-          name: 'LocalNotificationService');
+      dev.log(
+        'WARN: Skipping past notification (id=$id, time=$scheduledTime)',
+        name: 'LocalNotificationService',
+      );
       return;
     }
 
@@ -127,8 +131,9 @@ class LocalNotificationService {
     );
 
     dev.log(
-        'Scheduled notification id=$id for $scheduledTime on channel=$channelId',
-        name: 'LocalNotificationService');
+      'Scheduled notification id=$id for $scheduledTime on channel=$channelId',
+      name: 'LocalNotificationService',
+    );
   }
 
   /// Cancels a specific notification by ID.
@@ -143,15 +148,19 @@ class LocalNotificationService {
     for (var offset = 0; offset < 100; offset++) {
       await _plugin.cancel(taskId * 100 + offset);
     }
-    dev.log('Cancelled all notifications for task=$taskId',
-        name: 'LocalNotificationService');
+    dev.log(
+      'Cancelled all notifications for task=$taskId',
+      name: 'LocalNotificationService',
+    );
   }
 
   /// Cancels all pending notifications.
   Future<void> cancelAll() async {
     await _plugin.cancelAll();
-    dev.log('Cancelled all pending notifications',
-        name: 'LocalNotificationService');
+    dev.log(
+      'Cancelled all pending notifications',
+      name: 'LocalNotificationService',
+    );
   }
 
   /// Returns all pending notification requests.
@@ -176,7 +185,8 @@ class LocalNotificationService {
 
   void _onNotificationTapped(NotificationResponse response) {
     dev.log(
-        'Notification tapped: id=${response.id}, payload=${response.payload}',
-        name: 'LocalNotificationService');
+      'Notification tapped: id=${response.id}, payload=${response.payload}',
+      name: 'LocalNotificationService',
+    );
   }
 }

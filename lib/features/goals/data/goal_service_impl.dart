@@ -55,8 +55,10 @@ class GoalServiceImpl {
       where: 'id = ?',
       whereArgs: [goal.id],
     );
-    dev.log('Updated goal: "${goal.title}" (id=${goal.id})',
-        name: 'GoalService');
+    dev.log(
+      'Updated goal: "${goal.title}" (id=${goal.id})',
+      name: 'GoalService',
+    );
     return goal;
   }
 
@@ -144,8 +146,9 @@ class GoalServiceImpl {
     });
 
     dev.log(
-        'Logged progress: goal=$goalId, value=$value, date=${progress.date}',
-        name: 'GoalService');
+      'Logged progress: goal=$goalId, value=$value, date=${progress.date}',
+      name: 'GoalService',
+    );
     return progress.copyWith(id: id);
   }
 
@@ -211,14 +214,17 @@ class GoalServiceImpl {
     final db = await _databaseService.database;
     final today = DateTime.now().toDateString();
 
-    final rows = await db.rawQuery('''
+    final rows = await db.rawQuery(
+      '''
       SELECT g.* FROM goal g
       WHERE g.is_active = 1 AND g.is_archived = 0
       AND g.target_type = 'DAILY_HABIT'
       AND g.id NOT IN (
         SELECT DISTINCT goal_id FROM goal_progress WHERE date = ?
       )
-    ''', [today]);
+    ''',
+      [today],
+    );
 
     return rows.map(_goalFromMap).toList();
   }

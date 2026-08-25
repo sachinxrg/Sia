@@ -21,8 +21,11 @@ class TimelineWidget extends ConsumerWidget {
               child: Center(
                 child: Column(
                   children: [
-                    const Icon(Icons.event_available_rounded,
-                        size: 40, color: AppColors.onSurfaceVariant),
+                    const Icon(
+                      Icons.event_available_rounded,
+                      size: 40,
+                      color: AppColors.onSurfaceVariant,
+                    ),
                     const SizedBox(height: spacingS),
                     Text(
                       'No classes or scheduled tasks today',
@@ -91,8 +94,11 @@ class TimelineWidget extends ConsumerWidget {
                           ),
                         ),
                         if (block.isFixed)
-                          const Icon(Icons.lock_outline_rounded,
-                              size: 14, color: AppColors.onSurfaceVariant),
+                          const Icon(
+                            Icons.lock_outline_rounded,
+                            size: 14,
+                            color: AppColors.onSurfaceVariant,
+                          ),
                       ],
                     ),
                     Text(

@@ -34,8 +34,10 @@ class ScheduleServiceImpl {
       where: 'id = ?',
       whereArgs: [task.id],
     );
-    dev.log('Updated task: "${task.title}" (id=${task.id})',
-        name: 'ScheduleService');
+    dev.log(
+      'Updated task: "${task.title}" (id=${task.id})',
+      name: 'ScheduleService',
+    );
     return task;
   }
 
@@ -124,29 +126,33 @@ class ScheduleServiceImpl {
     // 1. Add timetable entries as fixed blocks
     final timetableEntries = await _getTimetableForDay(date);
     for (final entry in timetableEntries) {
-      blocks.add(TimelineBlock(
-        title: entry.subject,
-        type: 'CLASS',
-        startTime: entry.startTime,
-        endTime: entry.endTime,
-        subtitle: entry.room,
-        colorHex: '#6C5CE7',
-        isFixed: true,
-      ));
+      blocks.add(
+        TimelineBlock(
+          title: entry.subject,
+          type: 'CLASS',
+          startTime: entry.startTime,
+          endTime: entry.endTime,
+          subtitle: entry.room,
+          colorHex: '#6C5CE7',
+          isFixed: true,
+        ),
+      );
     }
 
     // 2. Add tasks as editable blocks
     final tasks = await getTasksForDate(date);
     for (final task in tasks) {
       if (task.scheduledStart != null && task.scheduledEnd != null) {
-        blocks.add(TimelineBlock(
-          title: task.title,
-          type: task.isCompleted ? 'DONE' : 'TASK',
-          startTime: task.scheduledStart!.toTimeString(),
-          endTime: task.scheduledEnd!.toTimeString(),
-          taskId: task.id,
-          colorHex: _priorityToHex(task.priority),
-        ));
+        blocks.add(
+          TimelineBlock(
+            title: task.title,
+            type: task.isCompleted ? 'DONE' : 'TASK',
+            startTime: task.scheduledStart!.toTimeString(),
+            endTime: task.scheduledEnd!.toTimeString(),
+            taskId: task.id,
+            colorHex: _priorityToHex(task.priority),
+          ),
+        );
       }
     }
 

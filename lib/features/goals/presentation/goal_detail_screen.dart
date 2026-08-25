@@ -30,8 +30,10 @@ class GoalDetailScreen extends ConsumerWidget {
             },
           ),
           IconButton(
-            icon: const Icon(Icons.delete_outline_rounded,
-                color: AppColors.error),
+            icon: const Icon(
+              Icons.delete_outline_rounded,
+              color: AppColors.error,
+            ),
             onPressed: () async {
               await ref.read(goalServiceProvider).deleteGoal(goalId);
               ref.invalidate(activeGoalsProvider);

@@ -20,8 +20,10 @@ class TaskDetailScreen extends ConsumerWidget {
         title: const Text('Task Details'),
         actions: [
           IconButton(
-            icon: const Icon(Icons.delete_outline_rounded,
-                color: AppColors.error),
+            icon: const Icon(
+              Icons.delete_outline_rounded,
+              color: AppColors.error,
+            ),
             onPressed: () async {
               await ref.read(scheduleServiceProvider).deleteTask(taskId);
               ref.invalidate(pendingTasksProvider);
@@ -111,20 +113,25 @@ class TaskDetailScreen extends ConsumerWidget {
                   child: ListTile(
                     leading: const Icon(Icons.alarm_rounded),
                     title: const Text('Deadline'),
-                    subtitle: Text(task.deadline != null
-                        ? task.deadline!.toIso8601String()
-                        : 'No deadline set'),
+                    subtitle: Text(
+                      task.deadline != null
+                          ? task.deadline!.toIso8601String()
+                          : 'No deadline set',
+                    ),
                   ),
                 ),
                 if (task.aiConfidence != null) ...[
                   const SizedBox(height: spacingS),
                   Card(
                     child: ListTile(
-                      leading: const Icon(Icons.auto_awesome_rounded,
-                          color: AppColors.primaryLight),
+                      leading: const Icon(
+                        Icons.auto_awesome_rounded,
+                        color: AppColors.primaryLight,
+                      ),
                       title: const Text('AI Confidence Score'),
                       subtitle: Text(
-                          '${(task.aiConfidence! * 100).toInt()}% extraction confidence'),
+                        '${(task.aiConfidence! * 100).toInt()}% extraction confidence',
+                      ),
                     ),
                   ),
                 ],

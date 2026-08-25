@@ -24,8 +24,11 @@ class UpcomingTasksWidget extends ConsumerWidget {
               child: Center(
                 child: Column(
                   children: [
-                    const Icon(Icons.task_alt_rounded,
-                        size: 40, color: AppColors.success),
+                    const Icon(
+                      Icons.task_alt_rounded,
+                      size: 40,
+                      color: AppColors.success,
+                    ),
                     const SizedBox(height: spacingS),
                     Text(
                       'All caught up! No pending tasks.',
@@ -53,8 +56,10 @@ class UpcomingTasksWidget extends ConsumerWidget {
               child: ListTile(
                 onTap: () => context.go('/schedule/task/${task.id}'),
                 leading: IconButton(
-                  icon: const Icon(Icons.circle_outlined,
-                      color: AppColors.primaryLight),
+                  icon: const Icon(
+                    Icons.circle_outlined,
+                    color: AppColors.primaryLight,
+                  ),
                   onPressed: () async {
                     if (task.id != null) {
                       await ref

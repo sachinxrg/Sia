@@ -80,10 +80,12 @@ class _ScheduleScreenState extends ConsumerState<ScheduleScreen>
                       initialValue: selectedPriority,
                       decoration: const InputDecoration(labelText: 'Priority'),
                       items: TaskPriority.values
-                          .map((p) => DropdownMenuItem(
-                                value: p,
-                                child: Text(p.name.toUpperCase()),
-                              ))
+                          .map(
+                            (p) => DropdownMenuItem(
+                              value: p,
+                              child: Text(p.name.toUpperCase()),
+                            ),
+                          )
                           .toList(),
                       onChanged: (val) {
                         if (val != null) {
@@ -107,9 +109,11 @@ class _ScheduleScreenState extends ConsumerState<ScheduleScreen>
                           setSheetState(() => selectedDeadline = date);
                         }
                       },
-                      child: Text(selectedDeadline == null
-                          ? 'Set Deadline'
-                          : selectedDeadline!.toDateString()),
+                      child: Text(
+                        selectedDeadline == null
+                            ? 'Set Deadline'
+                            : selectedDeadline!.toDateString(),
+                      ),
                     ),
                   ),
                 ],
@@ -301,9 +305,12 @@ class _ScheduleScreenState extends ConsumerState<ScheduleScreen>
               child: ListTile(
                 title: Text(entry.subject),
                 subtitle: Text(
-                    '${entry.dayOfWeek} • ${entry.startTime} - ${entry.endTime} ${entry.room != null ? "(${entry.room})" : ""}'),
-                leading: const Icon(Icons.school_rounded,
-                    color: AppColors.classroom),
+                  '${entry.dayOfWeek} • ${entry.startTime} - ${entry.endTime} ${entry.room != null ? "(${entry.room})" : ""}',
+                ),
+                leading: const Icon(
+                  Icons.school_rounded,
+                  color: AppColors.classroom,
+                ),
               ),
             );
           },

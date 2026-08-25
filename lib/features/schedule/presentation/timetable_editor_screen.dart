@@ -30,7 +30,7 @@ class _TimetableEditorScreenState extends ConsumerState<TimetableEditorScreen> {
     'THURSDAY',
     'FRIDAY',
     'SATURDAY',
-    'SUNDAY'
+    'SUNDAY',
   ];
 
   @override
@@ -182,10 +182,13 @@ class _TimetableEditorScreenState extends ConsumerState<TimetableEditorScreen> {
                 child: ListTile(
                   title: Text(entry.subject),
                   subtitle: Text(
-                      '${entry.dayOfWeek} • ${entry.startTime} - ${entry.endTime} ${entry.room != null ? "(${entry.room})" : ""}'),
+                    '${entry.dayOfWeek} • ${entry.startTime} - ${entry.endTime} ${entry.room != null ? "(${entry.room})" : ""}',
+                  ),
                   trailing: IconButton(
-                    icon: const Icon(Icons.delete_outline,
-                        color: AppColors.error),
+                    icon: const Icon(
+                      Icons.delete_outline,
+                      color: AppColors.error,
+                    ),
                     onPressed: () async {
                       if (entry.id != null) {
                         await ref

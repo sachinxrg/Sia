@@ -175,17 +175,21 @@ class ConsistencyServiceImpl {
       final goalsProgressed = goalCountMap[dateStr] ?? 0;
 
       if (metric != null) {
-        heatmapDays.add(HeatmapDay(
-          date: dateStr,
-          siaScore: (metric['sia_score'] as num?)?.toDouble() ?? 0.0,
-          tasksCompleted: (metric['tasks_completed'] as int?) ?? 0,
-          goalsProgressed: goalsProgressed,
-        ));
+        heatmapDays.add(
+          HeatmapDay(
+            date: dateStr,
+            siaScore: (metric['sia_score'] as num?)?.toDouble() ?? 0.0,
+            tasksCompleted: (metric['tasks_completed'] as int?) ?? 0,
+            goalsProgressed: goalsProgressed,
+          ),
+        );
       } else {
-        heatmapDays.add(HeatmapDay(
-          date: dateStr,
-          goalsProgressed: goalsProgressed,
-        ));
+        heatmapDays.add(
+          HeatmapDay(
+            date: dateStr,
+            goalsProgressed: goalsProgressed,
+          ),
+        );
       }
     }
 

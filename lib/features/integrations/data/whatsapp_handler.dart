@@ -43,8 +43,10 @@ class WhatsAppHandler {
       final hasAccess = await NotificationsListener.hasPermission ?? false;
       return hasAccess;
     } catch (e) {
-      dev.log('WARN: Could not check notification permission: $e',
-          name: 'WhatsAppHandler');
+      dev.log(
+        'WARN: Could not check notification permission: $e',
+        name: 'WhatsAppHandler',
+      );
       return false;
     }
   }
@@ -86,8 +88,9 @@ class WhatsAppHandler {
 
     if (existing.isNotEmpty) {
       dev.log(
-          'Duplicate notification skipped (hash: ${hash.substring(0, 8)}...)',
-          name: 'WhatsAppHandler');
+        'Duplicate notification skipped (hash: ${hash.substring(0, 8)}...)',
+        name: 'WhatsAppHandler',
+      );
       return;
     }
 

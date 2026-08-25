@@ -102,8 +102,10 @@ class AuthServiceImpl {
     if (collegeName != null) {
       await prefs.setString(kPrefCollegeName, collegeName);
     }
-    dev.log('Onboarding completed (college: $collegeName)',
-        name: 'AuthService');
+    dev.log(
+      'Onboarding completed (college: $collegeName)',
+      name: 'AuthService',
+    );
   }
 
   Future<void> _saveToPrefs(UserProfile profile) async {

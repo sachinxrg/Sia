@@ -75,8 +75,11 @@ class MetricsCard extends StatelessWidget {
               padding: const EdgeInsets.all(spacingM),
               child: Column(
                 children: [
-                  const Icon(Icons.check_circle_outline_rounded,
-                      color: AppColors.success, size: 28),
+                  const Icon(
+                    Icons.check_circle_outline_rounded,
+                    color: AppColors.success,
+                    size: 28,
+                  ),
                   const SizedBox(height: spacingXs),
                   Text(
                     '$completedCount',
@@ -107,8 +110,11 @@ class MetricsCard extends StatelessWidget {
               padding: const EdgeInsets.all(spacingM),
               child: Column(
                 children: [
-                  const Icon(Icons.pending_actions_rounded,
-                      color: AppColors.warning, size: 28),
+                  const Icon(
+                    Icons.pending_actions_rounded,
+                    color: AppColors.warning,
+                    size: 28,
+                  ),
                   const SizedBox(height: spacingXs),
                   Text(
                     '$pendingCount',

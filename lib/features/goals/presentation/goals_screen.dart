@@ -65,10 +65,12 @@ class _GoalsScreenState extends ConsumerState<GoalsScreen> {
                       initialValue: category,
                       decoration: const InputDecoration(labelText: 'Category'),
                       items: GoalCategory.values
-                          .map((c) => DropdownMenuItem(
-                                value: c,
-                                child: Text(c.name.toUpperCase()),
-                              ))
+                          .map(
+                            (c) => DropdownMenuItem(
+                              value: c,
+                              child: Text(c.name.toUpperCase()),
+                            ),
+                          )
                           .toList(),
                       onChanged: (val) {
                         if (val != null) setSheetState(() => category = val);
@@ -81,10 +83,12 @@ class _GoalsScreenState extends ConsumerState<GoalsScreen> {
                       initialValue: targetType,
                       decoration: const InputDecoration(labelText: 'Type'),
                       items: GoalTargetType.values
-                          .map((t) => DropdownMenuItem(
-                                value: t,
-                                child: Text(t.name.toUpperCase()),
-                              ))
+                          .map(
+                            (t) => DropdownMenuItem(
+                              value: t,
+                              child: Text(t.name.toUpperCase()),
+                            ),
+                          )
                           .toList(),
                       onChanged: (val) {
                         if (val != null) setSheetState(() => targetType = val);
@@ -168,8 +172,10 @@ class _GoalsScreenState extends ConsumerState<GoalsScreen> {
         title: const Text('Personal Goals'),
         actions: [
           IconButton(
-            icon: const Icon(Icons.local_fire_department_rounded,
-                color: AppColors.warning),
+            icon: const Icon(
+              Icons.local_fire_department_rounded,
+              color: AppColors.warning,
+            ),
             onPressed: () => context.go('/goals/consistency'),
           ),
         ],
@@ -220,8 +226,11 @@ class _GoalsScreenState extends ConsumerState<GoalsScreen> {
                       child: Center(
                         child: Column(
                           children: [
-                            const Icon(Icons.flag_outlined,
-                                size: 48, color: AppColors.onSurfaceVariant),
+                            const Icon(
+                              Icons.flag_outlined,
+                              size: 48,
+                              color: AppColors.onSurfaceVariant,
+                            ),
                             const SizedBox(height: spacingS),
                             Text(
                               'No active goals found',

@@ -49,14 +49,18 @@ class DatabaseService {
         onUpgrade: _onUpgrade,
         onConfigure: _onConfigure,
         onOpen: (db) async {
-          dev.log('Database opened successfully (version: $kDatabaseVersion)',
-              name: 'DatabaseService');
+          dev.log(
+            'Database opened successfully (version: $kDatabaseVersion)',
+            name: 'DatabaseService',
+          );
           await _runIntegrityCheck(db);
         },
       );
     } catch (e) {
-      dev.log('WARN: Falling back to FFI in-memory database: $e',
-          name: 'DatabaseService');
+      dev.log(
+        'WARN: Falling back to FFI in-memory database: $e',
+        name: 'DatabaseService',
+      );
       sqfliteFfiInit();
       databaseFactory = databaseFactoryFfi;
       return await openDatabase(
@@ -76,15 +80,19 @@ class DatabaseService {
 
   /// Runs the initial migration to create all tables.
   Future<void> _onCreate(Database db, int version) async {
-    dev.log('Creating database schema (version $version)',
-        name: 'DatabaseService');
+    dev.log(
+      'Creating database schema (version $version)',
+      name: 'DatabaseService',
+    );
     await _runMigration(db, 1, version);
   }
 
   /// Runs incremental migrations from oldVersion to newVersion.
   Future<void> _onUpgrade(Database db, int oldVersion, int newVersion) async {
-    dev.log('Upgrading database from v$oldVersion to v$newVersion',
-        name: 'DatabaseService');
+    dev.log(
+      'Upgrading database from v$oldVersion to v$newVersion',
+      name: 'DatabaseService',
+    );
     await _runMigration(db, oldVersion + 1, newVersion);
   }
 
@@ -126,14 +134,26 @@ class DatabaseService {
           .toIso8601String();
 
       final batch = db.batch();
-      batch.delete('raw_notification',
-          where: 'received_at < ?', whereArgs: [cutoffDate]);
-      batch.delete('gmail_item',
-          where: 'received_at < ?', whereArgs: [cutoffDate]);
-      batch.delete('notification_log',
-          where: 'created_at < ?', whereArgs: [cutoffDate]);
-      batch.delete('daily_metric',
-          where: 'date < ?', whereArgs: [cutoffDate.substring(0, 10)]);
+      batch.delete(
+        'raw_notification',
+        where: 'received_at < ?',
+        whereArgs: [cutoffDate],
+      );
+      batch.delete(
+        'gmail_item',
+        where: 'received_at < ?',
+        whereArgs: [cutoffDate],
+      );
+      batch.delete(
+        'notification_log',
+        where: 'created_at < ?',
+        whereArgs: [cutoffDate],
+      );
+      batch.delete(
+        'daily_metric',
+        where: 'date < ?',
+        whereArgs: [cutoffDate.substring(0, 10)],
+      );
 
       await batch.commit();
     } catch (e) {

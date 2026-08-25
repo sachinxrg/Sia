@@ -101,12 +101,15 @@ class GoogleIntegrationServiceImpl {
       client.close();
 
       dev.log(
-          'Fetched ${assignments.length} assignments from ${courses.length} courses',
-          name: 'GoogleIntegrationService');
+        'Fetched ${assignments.length} assignments from ${courses.length} courses',
+        name: 'GoogleIntegrationService',
+      );
       return assignments;
     } catch (e) {
-      dev.log('ERROR: Classroom fetch failed: $e',
-          name: 'GoogleIntegrationService');
+      dev.log(
+        'ERROR: Classroom fetch failed: $e',
+        name: 'GoogleIntegrationService',
+      );
       // Return cached assignments on failure
       return _getCachedAssignments();
     }
@@ -137,12 +140,16 @@ class GoogleIntegrationServiceImpl {
 
         final headers = message.payload?.headers ?? [];
         final fromHeader = headers
-            .firstWhere((h) => h.name == 'From',
-                orElse: () => gmail_api.MessagePartHeader())
+            .firstWhere(
+              (h) => h.name == 'From',
+              orElse: () => gmail_api.MessagePartHeader(),
+            )
             .value;
         final subjectHeader = headers
-            .firstWhere((h) => h.name == 'Subject',
-                orElse: () => gmail_api.MessagePartHeader())
+            .firstWhere(
+              (h) => h.name == 'Subject',
+              orElse: () => gmail_api.MessagePartHeader(),
+            )
             .value;
 
         // Only process emails from the last 7 days
@@ -187,12 +194,16 @@ class GoogleIntegrationServiceImpl {
       await _setLastSyncTime('gmail', now);
       client.close();
 
-      dev.log('Fetched ${emails.length} emails from Gmail',
-          name: 'GoogleIntegrationService');
+      dev.log(
+        'Fetched ${emails.length} emails from Gmail',
+        name: 'GoogleIntegrationService',
+      );
       return emails;
     } catch (e) {
-      dev.log('ERROR: Gmail fetch failed: $e',
-          name: 'GoogleIntegrationService');
+      dev.log(
+        'ERROR: Gmail fetch failed: $e',
+        name: 'GoogleIntegrationService',
+      );
       return _getCachedEmails();
     }
   }
@@ -218,8 +229,11 @@ class GoogleIntegrationServiceImpl {
     return authenticatedClient(
       http.Client(),
       AccessCredentials(
-        AccessToken('Bearer', token,
-            DateTime.now().add(const Duration(hours: 1)).toUtc()),
+        AccessToken(
+          'Bearer',
+          token,
+          DateTime.now().add(const Duration(hours: 1)).toUtc(),
+        ),
         null,
         kGoogleScopes,
       ),

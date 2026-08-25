@@ -54,15 +54,19 @@ class GeminiService {
     final classroomData = assignments.isEmpty
         ? 'No Classroom assignments.'
         : assignments
-            .map((a) =>
-                '- [${a.courseName}] ${a.title} (Due: ${a.dueDate?.toIso8601String() ?? "No deadline"})')
+            .map(
+              (a) =>
+                  '- [${a.courseName}] ${a.title} (Due: ${a.dueDate?.toIso8601String() ?? "No deadline"})',
+            )
             .join('\n');
 
     final gmailData = emails.isEmpty
         ? 'No Gmail items.'
         : emails
-            .map((e) =>
-                '- From: ${e.fromAddress} | Subject: ${e.subject} | ${e.snippet}')
+            .map(
+              (e) =>
+                  '- From: ${e.fromAddress} | Subject: ${e.subject} | ${e.snippet}',
+            )
             .join('\n');
 
     final prompt = Prompts.taskExtraction(
@@ -95,8 +99,10 @@ class GeminiService {
         );
       }).toList();
     } catch (e) {
-      dev.log('ERROR: Failed to parse task extraction response: $e',
-          name: 'GeminiService');
+      dev.log(
+        'ERROR: Failed to parse task extraction response: $e',
+        name: 'GeminiService',
+      );
       return [];
     }
   }
@@ -107,7 +113,7 @@ class GeminiService {
     required String urgencyLevel,
   }) async {
     final timeRemaining = task.deadline != null
-        ? task.deadline!.hoursRemaining.toStringAsFixed(1) + ' hours'
+        ? '${task.deadline!.hoursRemaining.toStringAsFixed(1)} hours'
         : 'No deadline set';
 
     final prompt = Prompts.notificationText(
@@ -124,8 +130,10 @@ class GeminiService {
       return response.text?.trim() ??
           'You have a task coming up: ${task.title}';
     } catch (e) {
-      dev.log('WARN: Notification text generation failed, using fallback: $e',
-          name: 'GeminiService');
+      dev.log(
+        'WARN: Notification text generation failed, using fallback: $e',
+        name: 'GeminiService',
+      );
       return 'Reminder: ${task.title} needs your attention.';
     }
   }
@@ -137,34 +145,46 @@ class GeminiService {
     required List<Goal> activeGoals,
     required DateTime date,
   }) async {
-    final timetableJson = jsonEncode(timetable
-        .map((t) => {
+    final timetableJson = jsonEncode(
+      timetable
+          .map(
+            (t) => {
               'subject': t.subject,
               'start_time': t.startTime,
               'end_time': t.endTime,
               'room': t.room,
-            })
-        .toList());
+            },
+          )
+          .toList(),
+    );
 
-    final tasksJson = jsonEncode(pendingTasks
-        .map((t) => {
+    final tasksJson = jsonEncode(
+      pendingTasks
+          .map(
+            (t) => {
               'id': t.id,
               'title': t.title,
               'priority': t.priorityString,
               'deadline': t.deadline?.toIso8601String(),
-            })
-        .toList());
+            },
+          )
+          .toList(),
+    );
 
-    final goalsJson = jsonEncode(activeGoals
-        .map((g) => {
+    final goalsJson = jsonEncode(
+      activeGoals
+          .map(
+            (g) => {
               'id': g.id,
               'title': g.title,
               'target_type': g.targetTypeString,
               'target_value': g.targetValue,
               'unit': g.unit,
               'deadline': g.deadline?.toIso8601String(),
-            })
-        .toList());
+            },
+          )
+          .toList(),
+    );
 
     final prompt = Prompts.dailySchedule(
       timetableJson: timetableJson,
@@ -189,8 +209,10 @@ class GeminiService {
         );
       }).toList();
     } catch (e) {
-      dev.log('ERROR: Failed to parse schedule response: $e',
-          name: 'GeminiService');
+      dev.log(
+        'ERROR: Failed to parse schedule response: $e',
+        name: 'GeminiService',
+      );
       return [];
     }
   }
@@ -222,8 +244,10 @@ class GeminiService {
       return response.text?.trim() ??
           'Keep your $currentStreak-day streak alive!';
     } catch (e) {
-      dev.log('WARN: Streak nudge generation failed: $e',
-          name: 'GeminiService');
+      dev.log(
+        'WARN: Streak nudge generation failed: $e',
+        name: 'GeminiService',
+      );
       return 'You\'re on a $currentStreak-day streak. Don\'t let it break!';
     }
   }
@@ -238,8 +262,10 @@ class GeminiService {
 
         final text = response.text;
         if (text == null || text.isEmpty) {
-          dev.log('WARN: Empty response from Gemini (attempt ${attempt + 1})',
-              name: 'GeminiService');
+          dev.log(
+            'WARN: Empty response from Gemini (attempt ${attempt + 1})',
+            name: 'GeminiService',
+          );
           continue;
         }
 

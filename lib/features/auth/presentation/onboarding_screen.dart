@@ -34,7 +34,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
     'THURSDAY',
     'FRIDAY',
     'SATURDAY',
-    'SUNDAY'
+    'SUNDAY',
   ];
 
   @override
@@ -166,10 +166,12 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                               decoration:
                                   const InputDecoration(labelText: 'Day'),
                               items: _days
-                                  .map((d) => DropdownMenuItem(
-                                        value: d,
-                                        child: Text(d.substring(0, 3)),
-                                      ))
+                                  .map(
+                                    (d) => DropdownMenuItem(
+                                      value: d,
+                                      child: Text(d.substring(0, 3)),
+                                    ),
+                                  )
                                   .toList(),
                               onChanged: (val) =>
                                   setState(() => _selectedDay = val!),
@@ -250,10 +252,13 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                       child: ListTile(
                         title: Text(item.subject),
                         subtitle: Text(
-                            '${item.dayOfWeek} • ${item.startTime} - ${item.endTime} ${item.room != null ? "(${item.room})" : ""}'),
+                          '${item.dayOfWeek} • ${item.startTime} - ${item.endTime} ${item.room != null ? "(${item.room})" : ""}',
+                        ),
                         trailing: IconButton(
-                          icon: const Icon(Icons.delete_outline,
-                              color: AppColors.error),
+                          icon: const Icon(
+                            Icons.delete_outline,
+                            color: AppColors.error,
+                          ),
                           onPressed: () {
                             setState(() => _tempEntries.removeAt(index));
                           },
