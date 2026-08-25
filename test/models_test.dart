@@ -9,7 +9,7 @@ import 'package:sia/models/timetable_entry.dart';
 void main() {
   group('Data Model Tests', () {
     test('Task model serialization & priority helper', () {
-      final now = DateTime(2026, 8, 11, 12, 0);
+      final now = DateTime.now();
       final task = Task(
         id: 1,
         title: 'Complete DBMS Assignment',
