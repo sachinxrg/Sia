@@ -1,4 +1,4 @@
-library;
+import '../../models/ai_personality.dart';
 
 /// Prompt templates for the Gemini 1.5 Flash API.
 /// All placeholders use {PLACEHOLDER_NAME} format for string interpolation.
@@ -54,17 +54,20 @@ OUTPUT FORMAT (strict JSON):
     required String deadline,
     required String urgencyLevel,
     required String timeRemaining,
+    AiPersonality personality = AiPersonality.encouragingMentor,
   }) =>
       '''
-Generate a short, motivating push notification message for a college student.
+Generate a short push notification message for a college student.
 Task: $taskTitle
 Deadline: $deadline
 Urgency: $urgencyLevel
 Time Remaining: $timeRemaining
+${personality.promptDirective}
 
 Rules:
 - Maximum 2 sentences.
 - Be specific and actionable.
+- Adhere strictly to the specified Tone.
 - Match urgency tone: casual for LOW, firm for HIGH, urgent for CRITICAL.
 - Return only the notification text, no JSON, no quotes.
 ''';
@@ -74,9 +77,11 @@ Rules:
     required String timetableJson,
     required String tasksJson,
     required String goalsJson,
+    AiPersonality personality = AiPersonality.encouragingMentor,
   }) =>
       '''
 Generate an optimal daily schedule for a college student.
+${personality.promptDirective}
 
 Fixed Blocks (cannot be moved):
 $timetableJson
@@ -118,19 +123,22 @@ Output Format:
     required int longestStreak,
     required String goalsList,
     required double hoursLeft,
+    AiPersonality personality = AiPersonality.encouragingMentor,
   }) =>
       '''
-Generate a short, motivating message for a college student about their consistency streak.
+Generate a short message for a college student about their consistency streak.
 
 Current Streak: $currentStreak days
 Longest Streak: $longestStreak days
 Goals Needing Attention Today: $goalsList
 Time Remaining Today: ${hoursLeft.toStringAsFixed(1)} hours
+${personality.promptDirective}
 
 Rules:
 - Maximum 2 sentences.
-- If streak is about to break, be urgent but encouraging.
-- If streak is strong, celebrate and motivate to extend.
+- Adhere strictly to the specified Tone.
+- If streak is about to break, be urgent but fit the tone.
+- If streak is strong, celebrate or acknowledge accordingly.
 - If near longest streak record, mention it as motivation.
 - Reference specific goals by name.
 - Return only the message text, no JSON, no quotes.
