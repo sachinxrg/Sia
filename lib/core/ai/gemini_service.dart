@@ -3,6 +3,7 @@ import 'dart:developer' as dev;
 
 import 'package:google_generative_ai/google_generative_ai.dart';
 
+import '../../models/ai_personality.dart';
 import '../../models/classroom_assignment.dart';
 import '../../models/gmail_item.dart';
 import '../../models/goal.dart';
@@ -111,6 +112,7 @@ class GeminiService {
   Future<String> generateNotificationText({
     required Task task,
     required String urgencyLevel,
+    AiPersonality personality = AiPersonality.encouragingMentor,
   }) async {
     final timeRemaining = task.deadline != null
         ? '${task.deadline!.hoursRemaining.toStringAsFixed(1)} hours'
@@ -121,6 +123,7 @@ class GeminiService {
       deadline: task.deadline?.toIso8601String() ?? 'No deadline',
       urgencyLevel: urgencyLevel,
       timeRemaining: timeRemaining,
+      personality: personality,
     );
 
     try {
@@ -144,6 +147,7 @@ class GeminiService {
     required List<Task> pendingTasks,
     required List<Goal> activeGoals,
     required DateTime date,
+    AiPersonality personality = AiPersonality.encouragingMentor,
   }) async {
     final timetableJson = jsonEncode(
       timetable
@@ -190,6 +194,7 @@ class GeminiService {
       timetableJson: timetableJson,
       tasksJson: tasksJson,
       goalsJson: goalsJson,
+      personality: personality,
     );
 
     final jsonResponse = await _sendWithRetry(prompt);
@@ -222,6 +227,7 @@ class GeminiService {
     required int currentStreak,
     required int longestStreak,
     required List<Goal> goalsNeedingAttention,
+    AiPersonality personality = AiPersonality.encouragingMentor,
   }) async {
     final goalsList = goalsNeedingAttention.isEmpty
         ? 'None — great job!'
@@ -235,6 +241,7 @@ class GeminiService {
       longestStreak: longestStreak,
       goalsList: goalsList,
       hoursLeft: hoursLeft,
+      personality: personality,
     );
 
     try {
