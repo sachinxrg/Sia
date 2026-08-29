@@ -7,6 +7,7 @@ import '../../../core/theme/app_theme.dart';
 import '../../../core/utils/date_extensions.dart';
 import '../../../models/task.dart';
 import '../providers/schedule_providers.dart';
+import 'widgets/adaptive_replan_sheet.dart';
 
 class ScheduleScreen extends ConsumerStatefulWidget {
   const ScheduleScreen({super.key});
@@ -78,7 +79,6 @@ class _ScheduleScreenState extends ConsumerState<ScheduleScreen>
                   Expanded(
                     child: DropdownButtonFormField<TaskPriority>(
                       initialValue: selectedPriority,
-                      decoration: const InputDecoration(labelText: 'Priority'),
                       items: TaskPriority.values
                           .map(
                             (p) => DropdownMenuItem(
@@ -92,27 +92,30 @@ class _ScheduleScreenState extends ConsumerState<ScheduleScreen>
                           setSheetState(() => selectedPriority = val);
                         }
                       },
+                      decoration: const InputDecoration(labelText: 'Priority'),
                     ),
                   ),
-                  const SizedBox(width: spacingS),
+                  const SizedBox(width: spacingM),
                   Expanded(
-                    child: OutlinedButton(
+                    child: OutlinedButton.icon(
                       onPressed: () async {
-                        final date = await showDatePicker(
+                        final picked = await showDatePicker(
                           context: context,
                           initialDate: DateTime.now(),
                           firstDate: DateTime.now(),
                           lastDate:
                               DateTime.now().add(const Duration(days: 365)),
                         );
-                        if (date != null) {
-                          setSheetState(() => selectedDeadline = date);
+                        if (picked != null) {
+                          setSheetState(() => selectedDeadline = picked);
                         }
                       },
-                      child: Text(
-                        selectedDeadline == null
-                            ? 'Set Deadline'
-                            : selectedDeadline!.toDateString(),
+                      icon: const Icon(Icons.calendar_today_rounded, size: 16),
+                      label: Text(
+                        selectedDeadline != null
+                            ? selectedDeadline!.toDateString()
+                            : 'Set Due Date',
+                        style: const TextStyle(fontSize: 12),
                       ),
                     ),
                   ),
@@ -161,6 +164,11 @@ class _ScheduleScreenState extends ConsumerState<ScheduleScreen>
       appBar: AppBar(
         title: const Text('Schedule & Tasks'),
         actions: [
+          IconButton(
+            icon: const Icon(Icons.auto_fix_high_rounded),
+            tooltip: 'Adaptive Re-plan',
+            onPressed: () => AdaptiveReplanSheet.show(context),
+          ),
           IconButton(
             icon: const Icon(Icons.edit_calendar_rounded),
             tooltip: 'Timetable Editor',
