@@ -1,7 +1,11 @@
 import 'dart:developer' as dev;
 
+import '../../../core/ai/gemini_service.dart';
 import '../../../core/database/database_service.dart';
 import '../../../core/utils/date_extensions.dart';
+import '../../../models/ai_personality.dart';
+import '../../../models/energy_slot.dart';
+import '../../../models/schedule_block.dart';
 import '../../../models/task.dart';
 import '../../../models/timeline_block.dart';
 import '../../../models/timetable_entry.dart';
@@ -173,6 +177,63 @@ class ScheduleServiceImpl {
     }
 
     return blocks;
+  }
+
+  /// Adaptively reschedules pending tasks for the remainder of [currentTime]'s day using [geminiService].
+  /// Persists newly assigned scheduled_start and scheduled_end times to the database.
+  Future<List<ScheduleBlock>> adaptiveReschedule({
+    required GeminiService geminiService,
+    required DateTime currentTime,
+    String? delayedTaskTitle,
+    int? delayedMinutes,
+    List<EnergySlot>? energySlots,
+    AiPersonality personality = AiPersonality.encouragingMentor,
+  }) async {
+    final pendingTasks = await getPendingTasks();
+    if (pendingTasks.isEmpty) return [];
+
+    final timetable = await _getTimetableForDay(currentTime);
+    final slots = energySlots ?? EnergySlot.defaultCircadianSlots();
+
+    final rescheduledBlocks = await geminiService.rescheduleAdaptive(
+      currentTime: currentTime,
+      remainingTasks: pendingTasks,
+      fixedTimetable: timetable,
+      energySlots: slots,
+      delayedTaskTitle: delayedTaskTitle,
+      delayedMinutes: delayedMinutes,
+      personality: personality,
+    );
+
+    if (rescheduledBlocks.isEmpty) return [];
+
+    final db = await _databaseService.database;
+    final datePrefix = currentTime.toDateString();
+
+    for (final block in rescheduledBlocks) {
+      if (block.taskId != null && block.type == BlockType.task) {
+        final startIso = '${datePrefix}T${block.startTime}:00';
+        final endIso = '${datePrefix}T${block.endTime}:00';
+
+        await db.update(
+          'task',
+          {
+            'scheduled_start': startIso,
+            'scheduled_end': endIso,
+            'updated_at': DateTime.now().toIso8601String(),
+          },
+          where: 'id = ?',
+          whereArgs: [block.taskId],
+        );
+      }
+    }
+
+    dev.log(
+      'Adaptively rescheduled ${rescheduledBlocks.length} blocks starting from $currentTime',
+      name: 'ScheduleService',
+    );
+
+    return rescheduledBlocks;
   }
 
   /// Returns timetable entries for a specific day of the week.
