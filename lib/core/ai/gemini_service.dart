@@ -5,6 +5,7 @@ import 'package:google_generative_ai/google_generative_ai.dart';
 
 import '../../models/ai_personality.dart';
 import '../../models/classroom_assignment.dart';
+import '../../models/energy_slot.dart';
 import '../../models/gmail_item.dart';
 import '../../models/goal.dart';
 import '../../models/raw_notification.dart';
@@ -256,6 +257,88 @@ class GeminiService {
         name: 'GeminiService',
       );
       return 'You\'re on a $currentStreak-day streak. Don\'t let it break!';
+    }
+  }
+
+  /// Dynamically reschedules remaining tasks starting from [currentTime]
+  /// taking into account energy slots, fixed timetable blocks, and delay info.
+  Future<List<ScheduleBlock>> rescheduleAdaptive({
+    required DateTime currentTime,
+    required List<Task> remainingTasks,
+    required List<TimetableEntry> fixedTimetable,
+    required List<EnergySlot> energySlots,
+    String? delayedTaskTitle,
+    int? delayedMinutes,
+    AiPersonality personality = AiPersonality.encouragingMentor,
+  }) async {
+    final timeStr =
+        '${currentTime.hour.toString().padLeft(2, '0')}:${currentTime.minute.toString().padLeft(2, '0')}';
+
+    final delayedTaskInfo = delayedTaskTitle != null
+        ? 'Task "$delayedTaskTitle" ran over by ${delayedMinutes ?? 30} minutes.'
+        : 'User triggered an on-demand adaptive re-plan at $timeStr.';
+
+    final remainingTasksJson = jsonEncode(
+      remainingTasks
+          .map(
+            (t) => {
+              'id': t.id,
+              'title': t.title,
+              'priority': t.priorityString,
+              'deadline': t.deadline?.toIso8601String(),
+            },
+          )
+          .toList(),
+    );
+
+    final fixedBlocksJson = jsonEncode(
+      fixedTimetable
+          .map(
+            (t) => {
+              'subject': t.subject,
+              'start_time': t.startTime,
+              'end_time': t.endTime,
+              'room': t.room,
+            },
+          )
+          .toList(),
+    );
+
+    final energySlotsJson = jsonEncode(
+      energySlots.map((s) => s.toJson()).toList(),
+    );
+
+    final prompt = Prompts.adaptiveReschedule(
+      currentTime: timeStr,
+      delayedTaskInfo: delayedTaskInfo,
+      remainingTasksJson: remainingTasksJson,
+      fixedBlocksJson: fixedBlocksJson,
+      energySlotsJson: energySlotsJson,
+      personality: personality,
+    );
+
+    final jsonResponse = await _sendWithRetry(prompt);
+    if (jsonResponse == null) return [];
+
+    try {
+      final List<dynamic> blockList = jsonDecode(jsonResponse) as List<dynamic>;
+      return blockList.map((item) {
+        final map = item as Map<String, dynamic>;
+        return ScheduleBlock(
+          title: map['title'] as String? ?? '',
+          type: _parseBlockType(map['type'] as String?),
+          startTime: map['start_time'] as String? ?? '00:00',
+          endTime: map['end_time'] as String? ?? '00:00',
+          taskId: map['task_id'] as int?,
+          goalId: map['goal_id'] as int?,
+        );
+      }).toList();
+    } catch (e) {
+      dev.log(
+        'ERROR: Failed to parse adaptive reschedule response: $e',
+        name: 'GeminiService',
+      );
+      return [];
     }
   }
 
