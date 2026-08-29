@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../core/theme/app_colors.dart';
 import '../../../core/theme/app_theme.dart';
+import 'widgets/personality_selector_card.dart';
 
 class IntegrationSettingsScreen extends ConsumerStatefulWidget {
   const IntegrationSettingsScreen({super.key});
@@ -61,6 +62,8 @@ class _IntegrationSettingsScreenState
       body: ListView(
         padding: const EdgeInsets.all(spacingM),
         children: [
+          const PersonalitySelectorCard(),
+          const SizedBox(height: spacingM),
           Card(
             child: SwitchListTile(
               secondary:
