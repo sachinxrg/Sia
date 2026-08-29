@@ -61,6 +61,8 @@ const String kPrefUserDisplayName = 'user_display_name';
 const String kPrefUserEmail = 'user_email';
 const String kPrefUserPhotoUrl = 'user_photo_url';
 const String kPrefCollegeName = 'user_college_name';
+const String kPrefAiPersonality = 'ai_personality';
+const String kDefaultAiPersonality = 'encouraging_mentor';
 
 // Schedule Generation
 const int kMaxTaskBlockMinutes = 120;
