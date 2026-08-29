@@ -1,6 +1,8 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:sia/models/consistency_streak.dart';
 import 'package:sia/models/daily_metric.dart';
+import 'package:sia/models/energy_level.dart';
+import 'package:sia/models/energy_slot.dart';
 import 'package:sia/models/goal.dart';
 import 'package:sia/models/schedule_block.dart';
 import 'package:sia/models/task.dart';
@@ -119,6 +121,50 @@ void main() {
       expect(streak.isOverall, isTrue);
       expect(streak.currentStreak, equals(7));
       expect(streak.streakTier, equals('large'));
+    });
+
+    test('EnergyLevel model helpers and parsing', () {
+      expect(
+        EnergyLevel.fromString('high_focus'),
+        equals(EnergyLevel.highFocus),
+      );
+      expect(
+        EnergyLevel.fromString('low_energy'),
+        equals(EnergyLevel.lowEnergy),
+      );
+      expect(
+        EnergyLevel.fromString('rest_break'),
+        equals(EnergyLevel.restBreak),
+      );
+      expect(
+        EnergyLevel.fromString('unknown'),
+        equals(EnergyLevel.mediumEnergy),
+      );
+
+      expect(EnergyLevel.highFocus.toStorageKey(), equals('high_focus'));
+      expect(EnergyLevel.highFocus.displayName, contains('High Focus'));
+      expect(EnergyLevel.highFocus.recommendedTimeWindow, equals('08:00 - 12:00'));
+    });
+
+    test('EnergySlot model serialization and defaults', () {
+      final defaultSlots = EnergySlot.defaultCircadianSlots();
+      expect(defaultSlots.length, equals(5));
+      expect(defaultSlots.first.energyLevel, equals(EnergyLevel.highFocus));
+
+      const slot = EnergySlot(
+        startTime: '09:00',
+        endTime: '11:00',
+        energyLevel: EnergyLevel.highFocus,
+        label: 'Morning Math',
+      );
+
+      final json = slot.toJson();
+      final restored = EnergySlot.fromJson(json);
+
+      expect(restored.startTime, equals('09:00'));
+      expect(restored.endTime, equals('11:00'));
+      expect(restored.energyLevel, equals(EnergyLevel.highFocus));
+      expect(restored.label, equals('Morning Math'));
     });
   });
 }

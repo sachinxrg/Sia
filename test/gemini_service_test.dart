@@ -94,5 +94,23 @@ void main() {
         equals('encouraging_mentor'),
       );
     });
+
+    test('Adaptive reschedule prompt formatting with energy slots', () {
+      final prompt = Prompts.adaptiveReschedule(
+        currentTime: '14:30',
+        delayedTaskInfo: 'Task "Lab Work" ran over by 30 minutes.',
+        remainingTasksJson: '[{"title": "Math Assignment"}]',
+        fixedBlocksJson: '[{"subject": "OS Lab"}]',
+        energySlotsJson: '[{"energy_level": "high_focus"}]',
+        personality: AiPersonality.strictCoach,
+      );
+
+      expect(prompt, contains('14:30'));
+      expect(prompt, contains('Task "Lab Work" ran over by 30 minutes.'));
+      expect(prompt, contains('Math Assignment'));
+      expect(prompt, contains('OS Lab'));
+      expect(prompt, contains('high_focus'));
+      expect(prompt, contains('Direct, disciplined, and urgent'));
+    });
   });
 }
