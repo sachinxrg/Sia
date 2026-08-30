@@ -23,6 +23,8 @@ class BackupService {
     'timetable_entry',
     'daily_metric',
     'consistency_streak',
+    'exam_target',
+    'review_session',
   ];
 
   /// Computes SHA-256 checksum string for a serialized data payload.

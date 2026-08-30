@@ -214,7 +214,39 @@ const List<String> _v2Migration = [
   )
   ''',
 
+  // Exam Targets
+  '''
+  CREATE TABLE IF NOT EXISTS exam_target (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    subject TEXT NOT NULL,
+    exam_date TEXT NOT NULL,
+    target_score REAL DEFAULT 100.0,
+    syllabus_topics TEXT,
+    completed_topics_count INTEGER DEFAULT 0,
+    room_or_location TEXT,
+    created_at TEXT NOT NULL
+  )
+  ''',
+
+  // Spaced Repetition Review Sessions
+  '''
+  CREATE TABLE IF NOT EXISTS review_session (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    exam_target_id INTEGER,
+    topic TEXT NOT NULL,
+    level TEXT NOT NULL,
+    next_review_date TEXT NOT NULL,
+    last_reviewed_at TEXT,
+    is_completed INTEGER DEFAULT 0,
+    created_at TEXT NOT NULL,
+    FOREIGN KEY(exam_target_id) REFERENCES exam_target(id) ON DELETE CASCADE
+  )
+  ''',
+
   // V2 Performance Indexes
   'CREATE INDEX IF NOT EXISTS idx_task_energy ON task(energy_level)',
   'CREATE INDEX IF NOT EXISTS idx_backup_timestamp ON user_backup_metadata(backup_timestamp)',
+  'CREATE INDEX IF NOT EXISTS idx_exam_date ON exam_target(exam_date)',
+  'CREATE INDEX IF NOT EXISTS idx_review_next_date ON review_session(next_review_date)',
+  'CREATE INDEX IF NOT EXISTS idx_review_exam ON review_session(exam_target_id)',
 ];
