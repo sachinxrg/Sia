@@ -191,4 +191,42 @@ OUTPUT FORMAT (strict JSON):
   }
 ]
 ''';
+
+  /// Exam crunch study planner — generates a spaced-repetition revision schedule leading up to an exam date.
+  static String examCrunchSchedule({
+    required String subject,
+    required String examDate,
+    required int daysRemaining,
+    required List<String> syllabusTopics,
+    required double dailyStudyHours,
+    AiPersonality personality = AiPersonality.encouragingMentor,
+  }) =>
+      '''
+You are SIA, an academic study strategist.
+Create an intensive, spaced-repetition revision study plan for an upcoming college examination.
+
+EXAMINATION DETAILS:
+- Subject: $subject
+- Exam Date: $examDate ($daysRemaining days remaining)
+- Target Daily Study Allocation: ${dailyStudyHours.toStringAsFixed(1)} hours
+- Syllabus Topics: ${syllabusTopics.join(', ')}
+${personality.promptDirective}
+
+PLANNING METHODOLOGY (Leitner / Spaced Repetition):
+1. Distribute new topic deep-dives across the first 60% of available days.
+2. Schedule spaced review intervals (Day 1 anchor, Day 3 review, Day 7 consolidation) for every covered topic.
+3. Reserve the final 24-48 hours before the exam exclusively for formula sheets, mock tests, and light rapid recall.
+4. Output structured study milestones with recommended revision intensity.
+
+OUTPUT FORMAT (strict JSON array):
+[
+  {
+    "topic": "string",
+    "study_date": "YYYY-MM-DD",
+    "duration_minutes": 60,
+    "session_type": "DEEP_DIVE|PRACTICE_PROBLEMS|SPACED_REVIEW|MOCK_TEST",
+    "recommended_focus": "string"
+  }
+]
+''';
 }
