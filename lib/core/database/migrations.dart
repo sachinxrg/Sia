@@ -5,6 +5,7 @@ library;
 
 const Map<int, List<String>> migrations = {
   1: _v1Migration,
+  2: _v2Migration,
 };
 
 const List<String> _v1Migration = [
@@ -195,4 +196,25 @@ const List<String> _v1Migration = [
   'CREATE INDEX IF NOT EXISTS idx_goal_progress_date ON goal_progress(date)',
   'CREATE INDEX IF NOT EXISTS idx_streak_type ON consistency_streak(streak_type)',
   'CREATE INDEX IF NOT EXISTS idx_streak_goal ON consistency_streak(goal_id)',
+];
+
+const List<String> _v2Migration = [
+  // Task Energy Level & Duration Metadata
+  'ALTER TABLE task ADD COLUMN energy_level TEXT DEFAULT "medium_energy"',
+  'ALTER TABLE task ADD COLUMN estimated_minutes INTEGER DEFAULT 30',
+
+  // Backup & Export Audit Metadata
+  '''
+  CREATE TABLE IF NOT EXISTS user_backup_metadata (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    backup_timestamp TEXT NOT NULL,
+    checksum TEXT NOT NULL,
+    record_count INTEGER NOT NULL,
+    created_at TEXT NOT NULL
+  )
+  ''',
+
+  // V2 Performance Indexes
+  'CREATE INDEX IF NOT EXISTS idx_task_energy ON task(energy_level)',
+  'CREATE INDEX IF NOT EXISTS idx_backup_timestamp ON user_backup_metadata(backup_timestamp)',
 ];
