@@ -4,7 +4,7 @@ library;
 
 // Database
 const String kDatabaseName = 'sia_database.db';
-const int kDatabaseVersion = 1;
+const int kDatabaseVersion = 2;
 const int kDataRetentionDays = 30;
 
 // WhatsApp
