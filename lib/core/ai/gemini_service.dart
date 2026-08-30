@@ -6,6 +6,7 @@ import 'package:google_generative_ai/google_generative_ai.dart';
 import '../../models/ai_personality.dart';
 import '../../models/classroom_assignment.dart';
 import '../../models/energy_slot.dart';
+import '../../models/exam_target.dart';
 import '../../models/gmail_item.dart';
 import '../../models/goal.dart';
 import '../../models/raw_notification.dart';
@@ -336,6 +337,36 @@ class GeminiService {
     } catch (e) {
       dev.log(
         'ERROR: Failed to parse adaptive reschedule response: $e',
+        name: 'GeminiService',
+      );
+      return [];
+    }
+  }
+
+  /// Generates an intensive spaced-repetition revision study plan leading up to [exam]'s date.
+  Future<List<Map<String, dynamic>>> generateExamCrunchPlan({
+    required ExamTarget exam,
+    double dailyStudyHours = 2.0,
+    AiPersonality personality = AiPersonality.encouragingMentor,
+  }) async {
+    final prompt = Prompts.examCrunchSchedule(
+      subject: exam.subject,
+      examDate: exam.examDate.toDateString(),
+      daysRemaining: exam.daysRemaining,
+      syllabusTopics: exam.syllabusTopics,
+      dailyStudyHours: dailyStudyHours,
+      personality: personality,
+    );
+
+    final jsonResponse = await _sendWithRetry(prompt);
+    if (jsonResponse == null) return [];
+
+    try {
+      final List<dynamic> list = jsonDecode(jsonResponse) as List<dynamic>;
+      return list.whereType<Map<String, dynamic>>().toList();
+    } catch (e) {
+      dev.log(
+        'ERROR: Failed to parse exam crunch response: $e',
         name: 'GeminiService',
       );
       return [];
