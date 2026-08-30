@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../core/theme/app_colors.dart';
 import '../../../core/theme/app_theme.dart';
+import 'widgets/data_backup_card.dart';
 import 'widgets/personality_selector_card.dart';
 
 class IntegrationSettingsScreen extends ConsumerStatefulWidget {
@@ -101,6 +102,8 @@ class _IntegrationSettingsScreenState
               onChanged: (val) => setState(() => _gmailEnabled = val),
             ),
           ),
+          const SizedBox(height: spacingM),
+          const DataBackupCard(),
           const SizedBox(height: spacingL),
           Text(
             'Zero-Cost Stack Guarantee',
