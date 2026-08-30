@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:developer' as dev;
 import 'package:crypto/crypto.dart';
+import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 
 import '../utils/constants.dart';
 import 'database_service.dart';
@@ -82,5 +83,61 @@ class BackupService {
     );
 
     return fullPayloadJson;
+  }
+
+  /// Restores database records from an integrity-validated JSON backup string.
+  /// Executes inside a single atomic SQLite transaction with table clearing and record replacement.
+  Future<int> importBackup(String rawPayloadJson) async {
+    final Map<String, dynamic> payload =
+        jsonDecode(rawPayloadJson) as Map<String, dynamic>;
+
+    if (payload['app'] != 'SIA') {
+      throw const FormatException('Invalid backup: Not a SIA backup file');
+    }
+
+    final dataMap = payload['data'] as Map<String, dynamic>?;
+    if (dataMap == null) {
+      throw const FormatException('Corrupted backup: Missing data payload');
+    }
+
+    final expectedChecksum = payload['checksum'] as String?;
+    final computedChecksum = computeChecksum(jsonEncode(dataMap));
+
+    if (expectedChecksum != computedChecksum) {
+      throw const FormatException(
+        'Integrity check failed: Checksum mismatch. File may be corrupted.',
+      );
+    }
+
+    final db = await _databaseService.database;
+    var restoredRecords = 0;
+
+    await db.transaction((txn) async {
+      for (final table in _exportTables) {
+        if (!dataMap.containsKey(table)) continue;
+        final rawRows = dataMap[table] as List<dynamic>?;
+        if (rawRows == null) continue;
+
+        // Clear existing table content for clean restore
+        await txn.delete(table);
+
+        for (final item in rawRows) {
+          final row = item as Map<String, dynamic>;
+          await txn.insert(
+            table,
+            row,
+            conflictAlgorithm: ConflictAlgorithm.replace,
+          );
+          restoredRecords++;
+        }
+      }
+    });
+
+    dev.log(
+      'Restored $restoredRecords records successfully from backup',
+      name: 'BackupService',
+    );
+
+    return restoredRecords;
   }
 }
