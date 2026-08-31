@@ -143,7 +143,8 @@ void main() {
 
       expect(EnergyLevel.highFocus.toStorageKey(), equals('high_focus'));
       expect(EnergyLevel.highFocus.displayName, contains('High Focus'));
-      expect(EnergyLevel.highFocus.recommendedTimeWindow, equals('08:00 - 12:00'));
+      expect(
+          EnergyLevel.highFocus.recommendedTimeWindow, equals('08:00 - 12:00'));
     });
 
     test('EnergySlot model serialization and defaults', () {

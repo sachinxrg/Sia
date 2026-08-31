@@ -36,7 +36,8 @@ void main() {
   }
 
   group('Exam Target & Spaced Repetition UI Widget Tests', () {
-    testWidgets('ExamCountdownCard renders subject, days remaining, and progress',
+    testWidgets(
+        'ExamCountdownCard renders subject, days remaining, and progress',
         (tester) async {
       await tester.pumpWidget(
         createTestWidget(
@@ -68,7 +69,8 @@ void main() {
       expect(find.byType(CheckboxListTile), findsNWidgets(3));
     });
 
-    testWidgets('ReviewSessionTile renders Leitner level and recall action buttons when due',
+    testWidgets(
+        'ReviewSessionTile renders Leitner level and recall action buttons when due',
         (tester) async {
       final dueSession = ReviewSession(
         id: 1,

@@ -33,7 +33,8 @@ void main() {
       expect(prompt, contains('Tone: Minimalist and ultra-concise'));
     });
 
-    test('Notification text prompt formatting with strict coach personality', () {
+    test('Notification text prompt formatting with strict coach personality',
+        () {
       final prompt = Prompts.notificationText(
         taskTitle: 'Math HW',
         deadline: '2026-08-11T18:00:00Z',
@@ -48,7 +49,8 @@ void main() {
       expect(prompt, contains('Direct, disciplined, and urgent'));
     });
 
-    test('Streak nudge prompt generation with encouraging mentor personality', () {
+    test('Streak nudge prompt generation with encouraging mentor personality',
+        () {
       final prompt = Prompts.streakNudge(
         currentStreak: 5,
         longestStreak: 10,

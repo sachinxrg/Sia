@@ -43,7 +43,8 @@ void main() {
 
       // Verify task table has energy_level column
       final taskColumns = await db.rawQuery('PRAGMA table_info(task)');
-      final columnNames = taskColumns.map((col) => col['name'] as String).toList();
+      final columnNames =
+          taskColumns.map((col) => col['name'] as String).toList();
 
       expect(columnNames, contains('energy_level'));
       expect(columnNames, contains('estimated_minutes'));
@@ -103,7 +104,8 @@ void main() {
 
       final restoredTasks = await db.query('task');
       expect(restoredTasks.length, equals(1));
-      expect(restoredTasks.first['title'], equals('Operating Systems Assignment'));
+      expect(
+          restoredTasks.first['title'], equals('Operating Systems Assignment'));
     });
 
     test('Import backup rejects tampered checksums', () async {
@@ -112,7 +114,8 @@ void main() {
           jsonDecode(backupJson) as Map<String, dynamic>;
 
       // Tamper checksum
-      parsed['checksum'] = '0000000000000000000000000000000000000000000000000000000000000000';
+      parsed['checksum'] =
+          '0000000000000000000000000000000000000000000000000000000000000000';
       final tamperedJson = jsonEncode(parsed);
 
       expect(
