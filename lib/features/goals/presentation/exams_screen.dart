@@ -21,11 +21,11 @@ class ExamsScreen extends ConsumerWidget {
       child: Scaffold(
         appBar: AppBar(
           title: const Text('Exam Targets'),
-          bottom: TabBar(
+          bottom: const TabBar(
             indicatorColor: AppColors.primary,
             labelColor: AppColors.primary,
             unselectedLabelColor: AppColors.onSurfaceVariant,
-            tabs: const [
+            tabs: [
               Tab(text: 'Upcoming'),
               Tab(text: 'Past'),
             ],

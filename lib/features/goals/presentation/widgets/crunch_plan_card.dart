@@ -208,7 +208,7 @@ class CrunchPlanCard extends StatelessWidget {
                             const SizedBox(height: spacingXs),
                             Row(
                               children: [
-                                Icon(
+                                const Icon(
                                   Icons.calendar_today_rounded,
                                   size: 12,
                                   color: AppColors.onSurfaceVariant,
@@ -224,7 +224,7 @@ class CrunchPlanCard extends StatelessWidget {
                                       ),
                                 ),
                                 const SizedBox(width: spacingM),
-                                Icon(
+                                const Icon(
                                   Icons.timer_outlined,
                                   size: 12,
                                   color: AppColors.onSurfaceVariant,
