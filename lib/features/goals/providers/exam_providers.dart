@@ -43,3 +43,9 @@ final dueReviewSessionsProvider =
   final service = ref.watch(examServiceProvider);
   return service.getDueReviewSessions();
 });
+
+/// Provider returning past/completed examinations for archive view.
+final pastExamsProvider = FutureProvider<List<ExamTarget>>((ref) async {
+  final service = ref.watch(examServiceProvider);
+  return service.getPastExams();
+});
