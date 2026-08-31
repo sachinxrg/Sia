@@ -6,14 +6,13 @@ import '../../../core/theme/app_colors.dart';
 import '../../../core/theme/app_theme.dart';
 import '../../../core/utils/date_extensions.dart';
 import '../../auth/providers/auth_providers.dart';
-
-import '../../goals/providers/goals_providers.dart';
 import '../../goals/providers/exam_providers.dart';
+import '../../goals/providers/goals_providers.dart';
 import '../../schedule/providers/schedule_providers.dart';
+import 'widgets/exam_countdown_card.dart';
 import 'widgets/metrics_card.dart';
 import 'widgets/streak_badge.dart';
 import 'widgets/timeline_widget.dart';
-import 'widgets/exam_countdown_card.dart';
 import 'widgets/upcoming_tasks_widget.dart';
 
 class DashboardScreen extends ConsumerWidget {
