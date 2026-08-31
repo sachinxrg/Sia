@@ -159,4 +159,33 @@ class ExamServiceImpl {
     );
     return rows.map((r) => ExamTarget.fromJson(r)).toList();
   }
+
+  /// Toggles a syllabus topic as completed or uncompleted by adjusting the count.
+  /// [completed] = true increments, false decrements (clamped to 0..topicCount).
+  Future<void> toggleSyllabusTopic({
+    required int examId,
+    required bool completed,
+  }) async {
+    final db = await _databaseService.database;
+    final exam = await getExamById(examId);
+    if (exam == null) return;
+
+    final currentCount = exam.completedTopicsCount;
+    final maxCount = exam.syllabusTopics.length;
+    final newCount = completed
+        ? (currentCount + 1).clamp(0, maxCount)
+        : (currentCount - 1).clamp(0, maxCount);
+
+    await db.update(
+      'exam_target',
+      {'completed_topics_count': newCount},
+      where: 'id = ?',
+      whereArgs: [examId],
+    );
+
+    dev.log(
+      'Toggled syllabus topic for exam $examId: $currentCount → $newCount',
+      name: 'ExamService',
+    );
+  }
 }
