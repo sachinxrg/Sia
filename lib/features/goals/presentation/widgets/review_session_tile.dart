@@ -109,15 +109,20 @@ class ReviewSessionTile extends StatelessWidget {
             Row(
               children: [
                 Icon(
-                  isDue ? Icons.notification_important_rounded : Icons.schedule_rounded,
+                  isDue
+                      ? Icons.notification_important_rounded
+                      : Icons.schedule_rounded,
                   size: 14,
-                  color: isDue ? AppColors.critical : AppColors.onSurfaceVariant,
+                  color:
+                      isDue ? AppColors.critical : AppColors.onSurfaceVariant,
                 ),
                 const SizedBox(width: spacingXs),
                 Text(
                   isDue ? 'Due now — review this topic' : 'Scheduled review',
                   style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                        color: isDue ? AppColors.critical : AppColors.onSurfaceVariant,
+                        color: isDue
+                            ? AppColors.critical
+                            : AppColors.onSurfaceVariant,
                         fontWeight: isDue ? FontWeight.w600 : FontWeight.normal,
                       ),
                 ),

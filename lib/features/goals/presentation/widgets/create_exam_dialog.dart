@@ -69,8 +69,9 @@ class _CreateExamDialogState extends ConsumerState<CreateExamDialog> {
       examDate: _examDate,
       targetScore: _targetScore,
       syllabusTopics: topics,
-      roomOrLocation:
-          _roomController.text.trim().isEmpty ? null : _roomController.text.trim(),
+      roomOrLocation: _roomController.text.trim().isEmpty
+          ? null
+          : _roomController.text.trim(),
       createdAt: DateTime.now(),
     );
 

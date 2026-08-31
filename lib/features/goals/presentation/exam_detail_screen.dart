@@ -303,7 +303,9 @@ class _ExamDetailScreenState extends ConsumerState<ExamDetailScreen> {
                               )
                             : const Icon(Icons.auto_awesome_rounded, size: 16),
                         label: Text(
-                          _isGenerating ? 'Generating...' : 'Generate Crunch Plan',
+                          _isGenerating
+                              ? 'Generating...'
+                              : 'Generate Crunch Plan',
                         ),
                       ),
                     ),

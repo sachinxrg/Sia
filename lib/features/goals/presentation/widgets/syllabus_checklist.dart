@@ -33,7 +33,8 @@ class _SyllabusChecklistState extends ConsumerState<SyllabusChecklist> {
   void didUpdateWidget(covariant SyllabusChecklist oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (oldWidget.exam.id != widget.exam.id ||
-        oldWidget.exam.completedTopicsCount != widget.exam.completedTopicsCount) {
+        oldWidget.exam.completedTopicsCount !=
+            widget.exam.completedTopicsCount) {
       _initCheckedState();
     }
   }
@@ -87,8 +88,9 @@ class _SyllabusChecklistState extends ConsumerState<SyllabusChecklist> {
       );
     }
 
-    final progress =
-        topics.isEmpty ? 0.0 : (_completedCount / topics.length).clamp(0.0, 1.0);
+    final progress = topics.isEmpty
+        ? 0.0
+        : (_completedCount / topics.length).clamp(0.0, 1.0);
 
     return Card(
       child: Padding(

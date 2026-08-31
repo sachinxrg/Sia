@@ -108,10 +108,8 @@ class ReviewSessionSheet extends ConsumerWidget {
                     );
                   }
 
-                  final dueNow =
-                      reviews.where((r) => r.isDue).toList();
-                  final upcoming =
-                      reviews.where((r) => !r.isDue).toList();
+                  final dueNow = reviews.where((r) => r.isDue).toList();
+                  final upcoming = reviews.where((r) => !r.isDue).toList();
 
                   return ListView(
                     controller: scrollController,
@@ -140,8 +138,7 @@ class ReviewSessionSheet extends ConsumerWidget {
                     ],
                   );
                 },
-                loading: () =>
-                    const Center(child: CircularProgressIndicator()),
+                loading: () => const Center(child: CircularProgressIndicator()),
                 error: (err, _) =>
                     Center(child: Text('Error loading reviews: $err')),
               ),

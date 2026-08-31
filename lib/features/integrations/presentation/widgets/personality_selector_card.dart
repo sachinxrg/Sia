@@ -139,7 +139,8 @@ class PersonalitySelectorCard extends ConsumerWidget {
                           isSelected
                               ? Icons.check_circle_rounded
                               : Icons.radio_button_unchecked_rounded,
-                          color: isSelected ? color : AppColors.onSurfaceVariant,
+                          color:
+                              isSelected ? color : AppColors.onSurfaceVariant,
                           size: 22,
                         ),
                       ],

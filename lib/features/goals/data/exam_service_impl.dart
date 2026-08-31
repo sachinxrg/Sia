@@ -94,8 +94,7 @@ class ExamServiceImpl {
     final db = await _databaseService.database;
     final now = DateTime.now();
 
-    final nextLevel =
-        remembered ? session.level.next : session.level.reset;
+    final nextLevel = remembered ? session.level.next : session.level.reset;
     final nextDate = now.add(Duration(days: nextLevel.intervalDays));
 
     await db.update(
@@ -104,9 +103,8 @@ class ExamServiceImpl {
         'level': nextLevel.toStorageKey(),
         'next_review_date': nextDate.toIso8601String(),
         'last_reviewed_at': now.toIso8601String(),
-        'is_completed': (remembered && session.level == SpacedRepetitionLevel.box5)
-            ? 1
-            : 0,
+        'is_completed':
+            (remembered && session.level == SpacedRepetitionLevel.box5) ? 1 : 0,
       },
       where: 'id = ?',
       whereArgs: [session.id],
