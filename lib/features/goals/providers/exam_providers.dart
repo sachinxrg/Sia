@@ -23,9 +23,23 @@ final allExamsProvider = FutureProvider<List<ExamTarget>>((ref) async {
   return service.getAllExams();
 });
 
+/// Family provider for fetching a single exam target by ID.
+final examByIdProvider =
+    FutureProvider.family<ExamTarget?, int>((ref, examId) async {
+  final service = ref.watch(examServiceProvider);
+  return service.getExamById(examId);
+});
+
 /// Family provider for fetching pending spaced repetition reviews for a specific exam.
 final pendingExamReviewsProvider =
     FutureProvider.family<List<ReviewSession>, int>((ref, examId) async {
   final service = ref.watch(examServiceProvider);
   return service.getPendingReviewsForExam(examId);
+});
+
+/// Provider returning all review sessions due today across all exams.
+final dueReviewSessionsProvider =
+    FutureProvider<List<ReviewSession>>((ref) async {
+  final service = ref.watch(examServiceProvider);
+  return service.getDueReviewSessions();
 });
