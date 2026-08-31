@@ -4,7 +4,6 @@ import 'package:sia/core/database/backup_service.dart';
 import 'package:sia/core/database/database_service.dart';
 import 'package:sia/core/database/migrations.dart';
 import 'package:sia/core/utils/constants.dart';
-import 'package:sia/models/task.dart';
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 
 void main() {
@@ -80,7 +79,8 @@ void main() {
 
       // Export backup
       final backupJson = await backupService.exportBackup();
-      final Map<String, dynamic> parsed = jsonDecode(backupJson);
+      final Map<String, dynamic> parsed =
+          jsonDecode(backupJson) as Map<String, dynamic>;
 
       expect(parsed['app'], equals('SIA'));
       expect(parsed['version'], equals(2));
@@ -108,7 +108,8 @@ void main() {
 
     test('Import backup rejects tampered checksums', () async {
       final backupJson = await backupService.exportBackup();
-      final Map<String, dynamic> parsed = jsonDecode(backupJson);
+      final Map<String, dynamic> parsed =
+          jsonDecode(backupJson) as Map<String, dynamic>;
 
       // Tamper checksum
       parsed['checksum'] = '0000000000000000000000000000000000000000000000000000000000000000';
