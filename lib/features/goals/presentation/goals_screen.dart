@@ -216,6 +216,62 @@ class _GoalsScreenState extends ConsumerState<GoalsScreen> {
             ),
             const SizedBox(height: spacingM),
 
+            // Exam Targets Quick Access Banner
+            GestureDetector(
+              onTap: () => context.go('/goals/exams'),
+              child: Card(
+                child: Padding(
+                  padding: const EdgeInsets.all(spacingM),
+                  child: Row(
+                    children: [
+                      Container(
+                        padding: const EdgeInsets.all(spacingS),
+                        decoration: BoxDecoration(
+                          color: AppColors.critical.withValues(alpha: 0.15),
+                          shape: BoxShape.circle,
+                        ),
+                        child: const Icon(
+                          Icons.timer_outlined,
+                          color: AppColors.critical,
+                          size: 20,
+                        ),
+                      ),
+                      const SizedBox(width: spacingM),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Exam Targets & Study Planner',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .titleSmall
+                                  ?.copyWith(fontWeight: FontWeight.bold),
+                            ),
+                            const SizedBox(height: spacingXs),
+                            Text(
+                              'Countdowns, syllabus tracking & AI crunch plans',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodySmall
+                                  ?.copyWith(
+                                    color: AppColors.onSurfaceVariant,
+                                  ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      const Icon(
+                        Icons.chevron_right_rounded,
+                        color: AppColors.onSurfaceVariant,
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+            const SizedBox(height: spacingM),
+
             // Active Goals List
             activeGoalsAsync.when(
               data: (goals) {
