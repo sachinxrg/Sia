@@ -8,10 +8,12 @@ import '../../../core/utils/date_extensions.dart';
 import '../../auth/providers/auth_providers.dart';
 
 import '../../goals/providers/goals_providers.dart';
+import '../../goals/providers/exam_providers.dart';
 import '../../schedule/providers/schedule_providers.dart';
 import 'widgets/metrics_card.dart';
 import 'widgets/streak_badge.dart';
 import 'widgets/timeline_widget.dart';
+import 'widgets/exam_countdown_card.dart';
 import 'widgets/upcoming_tasks_widget.dart';
 
 class DashboardScreen extends ConsumerWidget {
@@ -89,6 +91,22 @@ class DashboardScreen extends ConsumerWidget {
                 },
                 loading: () => const Center(child: CircularProgressIndicator()),
                 error: (err, _) => Text('Error loading metrics: $err'),
+              ),
+              const SizedBox(height: spacingM),
+
+              // Exam Countdown (tap to navigate)
+              GestureDetector(
+                onTap: () {
+                  final examsAsync = ref.read(upcomingExamsProvider);
+                  examsAsync.whenData((exams) {
+                    if (exams.isNotEmpty && exams.first.id != null) {
+                      context.go('/goals/exams/${exams.first.id}');
+                    } else {
+                      context.go('/goals/exams');
+                    }
+                  });
+                },
+                child: const ExamCountdownCard(),
               ),
               const SizedBox(height: spacingL),
 
