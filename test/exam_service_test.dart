@@ -62,18 +62,30 @@ void main() {
       expect(SpacedRepetitionLevel.box5.intervalDays, equals(30));
 
       expect(
-          SpacedRepetitionLevel.box1.next, equals(SpacedRepetitionLevel.box2));
+        SpacedRepetitionLevel.box1.next,
+        equals(SpacedRepetitionLevel.box2),
+      );
       expect(
-          SpacedRepetitionLevel.box2.next, equals(SpacedRepetitionLevel.box3));
+        SpacedRepetitionLevel.box2.next,
+        equals(SpacedRepetitionLevel.box3),
+      );
       expect(
-          SpacedRepetitionLevel.box3.next, equals(SpacedRepetitionLevel.box4));
+        SpacedRepetitionLevel.box3.next,
+        equals(SpacedRepetitionLevel.box4),
+      );
       expect(
-          SpacedRepetitionLevel.box4.next, equals(SpacedRepetitionLevel.box5));
+        SpacedRepetitionLevel.box4.next,
+        equals(SpacedRepetitionLevel.box5),
+      );
       expect(
-          SpacedRepetitionLevel.box5.next, equals(SpacedRepetitionLevel.box5));
+        SpacedRepetitionLevel.box5.next,
+        equals(SpacedRepetitionLevel.box5),
+      );
 
       expect(
-          SpacedRepetitionLevel.box4.reset, equals(SpacedRepetitionLevel.box1));
+        SpacedRepetitionLevel.box4.reset,
+        equals(SpacedRepetitionLevel.box1),
+      );
 
       expect(
         SpacedRepetitionLevel.fromString('box3'),

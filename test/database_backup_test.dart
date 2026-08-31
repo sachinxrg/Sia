@@ -105,7 +105,9 @@ void main() {
       final restoredTasks = await db.query('task');
       expect(restoredTasks.length, equals(1));
       expect(
-          restoredTasks.first['title'], equals('Operating Systems Assignment'));
+        restoredTasks.first['title'],
+        equals('Operating Systems Assignment'),
+      );
     });
 
     test('Import backup rejects tampered checksums', () async {
