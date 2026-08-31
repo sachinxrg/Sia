@@ -9,6 +9,8 @@ import 'features/auth/presentation/onboarding_screen.dart';
 import 'features/auth/providers/auth_providers.dart';
 import 'features/dashboard/presentation/dashboard_screen.dart';
 import 'features/goals/presentation/consistency_screen.dart';
+import 'features/goals/presentation/exam_detail_screen.dart';
+import 'features/goals/presentation/exams_screen.dart';
 import 'features/goals/presentation/goal_detail_screen.dart';
 import 'features/goals/presentation/goals_screen.dart';
 import 'features/integrations/presentation/integration_settings_screen.dart';
@@ -84,15 +86,28 @@ class SiaApp extends ConsumerWidget {
               builder: (context, state) => const GoalsScreen(),
               routes: [
                 GoRoute(
+                  path: 'exams',
+                  builder: (context, state) => const ExamsScreen(),
+                  routes: [
+                    GoRoute(
+                      path: ':id',
+                      builder: (context, state) {
+                        final examId = int.parse(state.pathParameters['id']!);
+                        return ExamDetailScreen(examId: examId);
+                      },
+                    ),
+                  ],
+                ),
+                GoRoute(
+                  path: 'consistency',
+                  builder: (context, state) => const ConsistencyScreen(),
+                ),
+                GoRoute(
                   path: ':id',
                   builder: (context, state) {
                     final goalId = int.parse(state.pathParameters['id']!);
                     return GoalDetailScreen(goalId: goalId);
                   },
-                ),
-                GoRoute(
-                  path: 'consistency',
-                  builder: (context, state) => const ConsistencyScreen(),
                 ),
               ],
             ),
