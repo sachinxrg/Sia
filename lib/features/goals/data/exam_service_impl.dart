@@ -112,4 +112,51 @@ class ExamServiceImpl {
       whereArgs: [session.id],
     );
   }
+
+  /// Fetches a single exam target by its database ID.
+  Future<ExamTarget?> getExamById(int id) async {
+    final db = await _databaseService.database;
+    final rows = await db.query(
+      'exam_target',
+      where: 'id = ?',
+      whereArgs: [id],
+      limit: 1,
+    );
+    if (rows.isEmpty) return null;
+    return ExamTarget.fromJson(rows.first);
+  }
+
+  /// Returns all review sessions due today or overdue across all exams.
+  Future<List<ReviewSession>> getDueReviewSessions() async {
+    final db = await _databaseService.database;
+    final endOfToday = DateTime.now();
+    final endOfTodayIso = DateTime(
+      endOfToday.year,
+      endOfToday.month,
+      endOfToday.day,
+      23,
+      59,
+      59,
+    ).toIso8601String();
+    final rows = await db.query(
+      'review_session',
+      where: 'is_completed = 0 AND next_review_date <= ?',
+      whereArgs: [endOfTodayIso],
+      orderBy: 'next_review_date ASC',
+    );
+    return rows.map((r) => ReviewSession.fromJson(r)).toList();
+  }
+
+  /// Returns past exams whose exam date has already passed.
+  Future<List<ExamTarget>> getPastExams() async {
+    final db = await _databaseService.database;
+    final todayIso = DateTime.now().toIso8601String().substring(0, 10);
+    final rows = await db.query(
+      'exam_target',
+      where: 'exam_date < ?',
+      whereArgs: [todayIso],
+      orderBy: 'exam_date DESC',
+    );
+    return rows.map((r) => ExamTarget.fromJson(r)).toList();
+  }
 }
