@@ -36,7 +36,7 @@ dependencies:
   # Notifications
   flutter_local_notifications: ^18.0.0
   flutter_notification_listener_plus: ^1.0.0
-  timezone: ^0.9.4
+  timezone: ^0.10.1
 
   # Navigation
   go_router: ^14.0.0
