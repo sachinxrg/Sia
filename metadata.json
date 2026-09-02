@@ -1,0 +1,6 @@
+{
+  "name": "SIA",
+  "description": "AI Study Assistant & Smart Academic Planner with Spaced Repetition, Exam Countdowns, and Timetable Management",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
