@@ -126,7 +126,7 @@ class _ThemeOptionTile extends StatelessWidget {
 
     final baseBorderColor =
         theme.dividerColor.withValues(alpha: isDarkTheme ? 0.3 : 0.5);
-    final activeBorderColor = AppColors.primary;
+    const activeBorderColor = AppColors.primary;
 
     final baseBgColor = isDarkTheme
         ? AppColors.surfaceVariant.withValues(alpha: 0.3)
