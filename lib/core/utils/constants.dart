@@ -63,6 +63,7 @@ const String kPrefUserPhotoUrl = 'user_photo_url';
 const String kPrefCollegeName = 'user_college_name';
 const String kPrefAiPersonality = 'ai_personality';
 const String kDefaultAiPersonality = 'encouraging_mentor';
+const String kPrefThemeMode = 'app_theme_mode';
 
 // Schedule Generation
 const int kMaxTaskBlockMinutes = 120;

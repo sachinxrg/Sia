@@ -18,10 +18,12 @@ class GoalCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      color: AppColors.surface,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(radiusMd),
-        side: const BorderSide(color: AppColors.surfaceVariant, width: 1),
+        side: BorderSide(
+          color: Theme.of(context).dividerColor,
+          width: 1,
+        ),
       ),
       child: InkWell(
         onTap: onTap,

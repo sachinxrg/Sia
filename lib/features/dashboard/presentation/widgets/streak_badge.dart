@@ -19,7 +19,6 @@ class StreakBadge extends ConsumerWidget {
         final isSecured = isSecuredAsync.asData?.value ?? false;
 
         return Card(
-          color: AppColors.surface,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(radiusLg),
             side: BorderSide(

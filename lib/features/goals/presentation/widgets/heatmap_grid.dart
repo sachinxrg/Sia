@@ -15,6 +15,9 @@ class HeatmapGrid extends StatelessWidget {
 
     // Organize into columns (weeks) of 7 days each
     final numWeeks = (days.length / 7).ceil();
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+    final palette =
+        isDark ? AppColors.heatmapColors : AppColors.lightHeatmapColors;
 
     return SingleChildScrollView(
       scrollDirection: Axis.horizontal,
@@ -29,7 +32,7 @@ class HeatmapGrid extends StatelessWidget {
               }
 
               final item = days[dataIndex];
-              final color = AppColors.heatmapColors[item.intensityLevel];
+              final color = palette[item.intensityLevel];
 
               return Tooltip(
                 message:

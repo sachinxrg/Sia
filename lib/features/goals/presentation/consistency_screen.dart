@@ -26,7 +26,6 @@ class ConsistencyScreen extends ConsumerWidget {
             // Streak Hero Section
             streakAsync.when(
               data: (streak) => Card(
-                color: AppColors.surface,
                 child: Padding(
                   padding: const EdgeInsets.all(spacingL),
                   child: Center(

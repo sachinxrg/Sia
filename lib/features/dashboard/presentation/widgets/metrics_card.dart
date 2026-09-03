@@ -22,7 +22,6 @@ class MetricsCard extends StatelessWidget {
         Expanded(
           flex: 4,
           child: Card(
-            color: AppColors.surface,
             child: Padding(
               padding: const EdgeInsets.all(spacingM),
               child: Column(
@@ -36,7 +35,8 @@ class MetricsCard extends StatelessWidget {
                         child: CircularProgressIndicator(
                           value: siaScore / 100,
                           strokeWidth: 6,
-                          backgroundColor: AppColors.surfaceVariant,
+                          backgroundColor:
+                              Theme.of(context).colorScheme.surfaceContainerHighest,
                           color: siaScore > 75
                               ? AppColors.success
                               : (siaScore > 40
@@ -56,7 +56,7 @@ class MetricsCard extends StatelessWidget {
                   Text(
                     'SIA Score',
                     style: Theme.of(context).textTheme.labelSmall?.copyWith(
-                          color: AppColors.onSurfaceVariant,
+                          color: Theme.of(context).colorScheme.onSurfaceVariant,
                         ),
                   ),
                 ],
@@ -70,7 +70,6 @@ class MetricsCard extends StatelessWidget {
         Expanded(
           flex: 3,
           child: Card(
-            color: AppColors.surface,
             child: Padding(
               padding: const EdgeInsets.all(spacingM),
               child: Column(
@@ -91,7 +90,7 @@ class MetricsCard extends StatelessWidget {
                   Text(
                     'Completed',
                     style: Theme.of(context).textTheme.labelSmall?.copyWith(
-                          color: AppColors.onSurfaceVariant,
+                          color: Theme.of(context).colorScheme.onSurfaceVariant,
                         ),
                   ),
                 ],
@@ -105,7 +104,6 @@ class MetricsCard extends StatelessWidget {
         Expanded(
           flex: 3,
           child: Card(
-            color: AppColors.surface,
             child: Padding(
               padding: const EdgeInsets.all(spacingM),
               child: Column(
@@ -126,7 +124,7 @@ class MetricsCard extends StatelessWidget {
                   Text(
                     'Pending',
                     style: Theme.of(context).textTheme.labelSmall?.copyWith(
-                          color: AppColors.onSurfaceVariant,
+                          color: Theme.of(context).colorScheme.onSurfaceVariant,
                         ),
                   ),
                 ],

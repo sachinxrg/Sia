@@ -56,12 +56,13 @@ class TimelineWidget extends ConsumerWidget {
                 decoration: BoxDecoration(
                   color: isCurrent
                       ? AppColors.primary.withValues(alpha: 0.2)
-                      : AppColors.surface,
+                      : (Theme.of(context).cardTheme.color ??
+                          Theme.of(context).colorScheme.surface),
                   borderRadius: BorderRadius.circular(radiusMd),
                   border: Border.all(
                     color: isCurrent
                         ? AppColors.primary
-                        : AppColors.surfaceVariant,
+                        : Theme.of(context).dividerColor,
                     width: isCurrent ? 2 : 1,
                   ),
                 ),

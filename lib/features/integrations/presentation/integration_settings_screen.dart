@@ -5,6 +5,7 @@ import '../../../core/theme/app_colors.dart';
 import '../../../core/theme/app_theme.dart';
 import 'widgets/data_backup_card.dart';
 import 'widgets/personality_selector_card.dart';
+import 'widgets/theme_selector_card.dart';
 
 class IntegrationSettingsScreen extends ConsumerStatefulWidget {
   const IntegrationSettingsScreen({super.key});
@@ -63,6 +64,8 @@ class _IntegrationSettingsScreenState
       body: ListView(
         padding: const EdgeInsets.all(spacingM),
         children: [
+          const ThemeSelectorCard(),
+          const SizedBox(height: spacingM),
           const PersonalitySelectorCard(),
           const SizedBox(height: spacingM),
           Card(

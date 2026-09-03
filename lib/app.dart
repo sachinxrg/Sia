@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 
 import 'core/theme/app_colors.dart';
 import 'core/theme/app_theme.dart';
+import 'core/theme/theme_provider.dart';
 import 'features/auth/presentation/login_screen.dart';
 import 'features/auth/presentation/onboarding_screen.dart';
 import 'features/auth/providers/auth_providers.dart';
@@ -25,10 +26,13 @@ class SiaApp extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final router = _createRouter(ref);
+    final themeMode = ref.watch(themeModeProvider);
     return MaterialApp.router(
       title: 'SIA',
       debugShowCheckedModeBanner: false,
-      theme: AppTheme.darkTheme,
+      theme: AppTheme.lightTheme,
+      darkTheme: AppTheme.darkTheme,
+      themeMode: themeMode,
       routerConfig: router,
     );
   }
@@ -143,10 +147,11 @@ class MainShell extends StatelessWidget {
       body: child,
       bottomNavigationBar: Container(
         decoration: BoxDecoration(
-          color: AppColors.surface,
+          color: Theme.of(context).cardTheme.color ??
+              Theme.of(context).colorScheme.surface,
           border: Border(
             top: BorderSide(
-              color: AppColors.surfaceVariant.withValues(alpha: 0.5),
+              color: Theme.of(context).dividerColor.withValues(alpha: 0.5),
               width: 0.5,
             ),
           ),

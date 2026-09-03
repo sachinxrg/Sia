@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../../core/theme/app_colors.dart';
 import '../../../core/theme/app_theme.dart';
+import '../../../core/theme/theme_provider.dart';
 import '../../../core/utils/date_extensions.dart';
 import '../../auth/providers/auth_providers.dart';
 import '../../goals/providers/exam_providers.dart';
@@ -47,6 +48,41 @@ class DashboardScreen extends ConsumerWidget {
         ),
         actions: [
           IconButton(
+            tooltip: () {
+              final mode = ref.watch(themeModeProvider);
+              final isDark = mode == ThemeMode.dark ||
+                  (mode == ThemeMode.system &&
+                      MediaQuery.platformBrightnessOf(context) ==
+                          Brightness.dark);
+              return isDark ? 'Switch to Light Mode' : 'Switch to Dark Mode';
+            }(),
+            icon: Builder(
+              builder: (context) {
+                final mode = ref.watch(themeModeProvider);
+                final isDark = mode == ThemeMode.dark ||
+                    (mode == ThemeMode.system &&
+                        MediaQuery.platformBrightnessOf(context) ==
+                            Brightness.dark);
+                return AnimatedSwitcher(
+                  duration: const Duration(milliseconds: 250),
+                  transitionBuilder: (child, anim) => RotationTransition(
+                    turns: anim,
+                    child: FadeTransition(opacity: anim, child: child),
+                  ),
+                  child: Icon(
+                    isDark ? Icons.light_mode_rounded : Icons.dark_mode_rounded,
+                    key: ValueKey<bool>(isDark),
+                    color: isDark ? AppColors.warning : AppColors.primary,
+                  ),
+                );
+              },
+            ),
+            onPressed: () {
+              ref.read(themeModeProvider.notifier).toggleTheme(context);
+            },
+          ),
+          IconButton(
+            tooltip: 'Refresh',
             icon: const Icon(Icons.refresh_rounded),
             onPressed: () {
               ref.invalidate(todayTasksProvider);
